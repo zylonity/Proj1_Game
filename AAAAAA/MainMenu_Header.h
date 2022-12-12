@@ -9,10 +9,14 @@ class MainMenu {
 
 
 	sf::RenderWindow* window;
-
+	
+	sf::Vector2u designedWinSize;
+	
 	sf::Font* font;
-	sf::Texture* image;
+	sf::Texture* bgImage;
+	sf::Texture* logoImage;
 	sf::Sprite* background;
+	sf::Sprite* logo;
 
 	sf::Vector2i pos_mouse;
 	sf::Vector2f mouseCoords;
