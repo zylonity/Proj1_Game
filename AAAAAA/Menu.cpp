@@ -15,6 +15,21 @@ MM::MainMenu() {
 	background = new sf::Sprite();
 	logo = new sf::Sprite();
 
+
+	for (int i = 0; i < 3; i++) {
+		texButtons[i] = new sf::Texture();
+		texButtonHighlighted[i] = new sf::Texture();
+		texButtonPressed[i] = new sf::Texture();
+		
+	}
+	
+	sprButtonPlay = new sf::Sprite();
+	sprButtonSettings = new sf::Sprite();
+	sprButtonQuit = new sf::Sprite();
+
+	
+	
+	
 	set_values();
 }
 
@@ -29,6 +44,17 @@ MM::~MainMenu() {
 
 	delete background;
 	delete logo;
+
+	for (int i = 0; i < 3; i++) {
+		delete texButtons[i];
+		delete texButtonHighlighted[i];
+		delete texButtonPressed[i];
+	}
+
+	delete sprButtonPlay;
+	delete sprButtonSettings;
+	delete sprButtonQuit;
+	
 }
 
 
@@ -65,12 +91,17 @@ void MM::set_values() {
 	window->create(sf::VideoMode(1280, 720), "wOah");
 	window->setView(calcView(window->getSize(), designedWinSize));
 	
+	buttonCount = 3;
+
 	bgImage->loadFromFile("Resources/Textures/BG.png");
 	logoImage->loadFromFile("Resources/Textures/TitleScreen.png");
 
 	
 	background->setTexture(*bgImage);
 	logo->setTexture(*logoImage);
+	
+	//font->loadFromFile("Resources/Fonts/Blokletters-Balpen.ttf");
+
 	
 	sf::Vector2f logoCoords;
 
@@ -79,7 +110,49 @@ void MM::set_values() {
 	logoCoords.y = ((designedWinSize.y / 2) - (logoImage->getSize().y / 2) - 200);
 
 	logo->setPosition(logoCoords);
+
+
+	options = {"PLAY", "SETTINGS", "QUIT"};
+	buttonCoords = { {640, 360}, {640, 420}, {640, 480} };
+	//textOptions.resize(3);
+
+	//Play button backing
+	texButtons[0]->loadFromFile("Resources/Textures/TitleScreenButtons/1.png");
+	texButtons[1]->loadFromFile("Resources/Textures/TitleScreenButtons/2.png");
+	texButtons[2]->loadFromFile("Resources/Textures/TitleScreenButtons/3.png");
+
+
+	//Settings button backing
+	texButtonHighlighted[0]->loadFromFile("Resources/Textures/TitleScreenButtons/1_highlighted.png");
+	texButtonHighlighted[1]->loadFromFile("Resources/Textures/TitleScreenButtons/2_highlighted.png");
+	texButtonHighlighted[2]->loadFromFile("Resources/Textures/TitleScreenButtons/3_highlighted.png");
+
 	
+	//Quit button backing
+	texButtonPressed[0]->loadFromFile("Resources/Textures/TitleScreenButtons/1_pressed.png");
+	texButtonPressed[1]->loadFromFile("Resources/Textures/TitleScreenButtons/2_pressed.png");
+	texButtonPressed[2]->loadFromFile("Resources/Textures/TitleScreenButtons/3_pressed.png");
+	
+
+	//Set the original button sprites
+	sprButtonPlay->setTexture(*texButtons[0]);
+	sprButtonSettings->setTexture(*texButtons[1]);
+	sprButtonQuit->setTexture(*texButtons[2]);
+	
+	sprButtonPlay->setPosition(buttonCoords[0]);
+	sprButtonSettings->setPosition(buttonCoords[1]);
+	sprButtonQuit->setPosition(buttonCoords[2]);
+	
+	/*for (int i = 0; i < 3; i++) {
+		textOptions[i].setFont(*font);
+		textOptions[i].setString("*options[i]");
+		textOptions[i].setPosition(buttonCoords[i]);
+		
+		sprButtonPlay->setPosition(buttonCoords[i]);
+
+		
+	}*/
+
 }
 
 
@@ -120,7 +193,15 @@ void MM::draw_all() {
 	window->draw(*background);
 	window->draw(*logo);
 
+	window->draw(*sprButtonPlay);
+	window->draw(*sprButtonSettings);
+	window->draw(*sprButtonQuit);
 
+	//for (auto t : textOptions) {
+	//	window->draw(t);
+	//}
+
+	
 	window->display();
 }
 
