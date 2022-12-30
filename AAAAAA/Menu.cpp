@@ -14,20 +14,10 @@ MM::MainMenu() {
 	logoImage = new sf::Texture();
 	background = new sf::Sprite();
 	logo = new sf::Sprite();
-
-
-	for (int i = 0; i < 3; i++) {
-		texButtons[i] = new sf::Texture();
-		texButtonHighlighted[i] = new sf::Texture();
-		texButtonPressed[i] = new sf::Texture();
-		
-	}
 	
 	sprButtonPlay = new sf::Sprite();
 	sprButtonSettings = new sf::Sprite();
 	sprButtonQuit = new sf::Sprite();
-
-	
 	
 	
 	set_values();
@@ -45,11 +35,6 @@ MM::~MainMenu() {
 	delete background;
 	delete logo;
 
-	for (int i = 0; i < 3; i++) {
-		delete texButtons[i];
-		delete texButtonHighlighted[i];
-		delete texButtonPressed[i];
-	}
 
 	delete sprButtonPlay;
 	delete sprButtonSettings;
@@ -83,6 +68,25 @@ sf::View calcView(const sf::Vector2u& windowsize, const sf::Vector2u& designedsi
 	return view;
 }
 
+sf::Vector2f MM::calculate_obj_offset(sf::Sprite* sprite, sf::Texture* texture, sf::Text* text) {
+	
+	if (sprite != 0) {
+		sf::Vector2f offset = sf::Vector2f(sprite->getGlobalBounds().width / 2, sprite->getGlobalBounds().height / 2);
+		return offset;
+	}
+	else if (texture != 0) {
+		sf::Vector2f offset = sf::Vector2f(texture->getSize().x / 2, texture->getSize().y / 2);
+		return offset;
+	}
+	else if (text != 0) {
+		sf::Vector2f offset = sf::Vector2f(text->getGlobalBounds().width / 2, text->getGlobalBounds().height / 2);
+		return offset;
+	}
+	else {
+		return sf::Vector2f(0, 0);
+	}
+
+}
 
 void MM::set_values() {
 	
@@ -100,7 +104,7 @@ void MM::set_values() {
 	background->setTexture(*bgImage);
 	logo->setTexture(*logoImage);
 	
-	//font->loadFromFile("Resources/Fonts/Blokletters-Balpen.ttf");
+	font->loadFromFile("Resources/Fonts/Blokletters-Balpen.ttf");
 
 	
 	sf::Vector2f logoCoords;
@@ -113,45 +117,55 @@ void MM::set_values() {
 
 
 	options = {"PLAY", "SETTINGS", "QUIT"};
-	buttonCoords = { {640, 360}, {640, 420}, {640, 480} };
-	//textOptions.resize(3);
+	buttonCoords = { {640, 340}, {640, 460}, {640, 580} };
+	
+	textOptions.resize(3);
 
-	//Play button backing
-	texButtons[0]->loadFromFile("Resources/Textures/TitleScreenButtons/1.png");
-	texButtons[1]->loadFromFile("Resources/Textures/TitleScreenButtons/2.png");
-	texButtons[2]->loadFromFile("Resources/Textures/TitleScreenButtons/3.png");
-
-
-	//Settings button backing
-	texButtonHighlighted[0]->loadFromFile("Resources/Textures/TitleScreenButtons/1_highlighted.png");
-	texButtonHighlighted[1]->loadFromFile("Resources/Textures/TitleScreenButtons/2_highlighted.png");
-	texButtonHighlighted[2]->loadFromFile("Resources/Textures/TitleScreenButtons/3_highlighted.png");
 
 	
-	//Quit button backing
-	texButtonPressed[0]->loadFromFile("Resources/Textures/TitleScreenButtons/1_pressed.png");
-	texButtonPressed[1]->loadFromFile("Resources/Textures/TitleScreenButtons/2_pressed.png");
-	texButtonPressed[2]->loadFromFile("Resources/Textures/TitleScreenButtons/3_pressed.png");
-	
+	texButtons.resize(3);
+	texButtonHighlighted.resize(3);
+	texButtonPressed.resize(3);
 
+	//Load original textures
+	texButtons[0].loadFromFile("Resources/Textures/TitleScreenButtons/1.png");
+	texButtons[1].loadFromFile("Resources/Textures/TitleScreenButtons/2.png");
+	texButtons[2].loadFromFile("Resources/Textures/TitleScreenButtons/3.png");
+
+
+	//Load highlighted textures
+	texButtonHighlighted[0].loadFromFile("Resources/Textures/TitleScreenButtons/1_highlighted.png");
+	texButtonHighlighted[1].loadFromFile("Resources/Textures/TitleScreenButtons/2_highlighted.png");
+	texButtonHighlighted[2].loadFromFile("Resources/Textures/TitleScreenButtons/3_highlighted.png");
+
+
+	//Load pressed textures
+	texButtonPressed[0].loadFromFile("Resources/Textures/TitleScreenButtons/1_pressed.png");
+	texButtonPressed[1].loadFromFile("Resources/Textures/TitleScreenButtons/2_pressed.png");
+	texButtonPressed[2].loadFromFile("Resources/Textures/TitleScreenButtons/3_pressed.png");
+	
+	
 	//Set the original button sprites
-	sprButtonPlay->setTexture(*texButtons[0]);
-	sprButtonSettings->setTexture(*texButtons[1]);
-	sprButtonQuit->setTexture(*texButtons[2]);
+	sprButtonPlay->setTexture(texButtons[0]);
+	sprButtonSettings->setTexture(texButtons[1]);
+	sprButtonQuit->setTexture(texButtons[2]);
 	
-	sprButtonPlay->setPosition(buttonCoords[0]);
-	sprButtonSettings->setPosition(buttonCoords[1]);
-	sprButtonQuit->setPosition(buttonCoords[2]);
+
+	//Set the button positions
+	sprButtonPlay->setPosition(*new sf::Vector2f(buttonCoords[0] - calculate_obj_offset(0, &texButtonPressed[0], 0))); //gets the coordinates and adjusts for button size
+	sprButtonSettings->setPosition(*new sf::Vector2f(buttonCoords[1] - calculate_obj_offset(0, &texButtonPressed[1], 0)));
+	sprButtonQuit->setPosition(*new sf::Vector2f(buttonCoords[2] - calculate_obj_offset(0, &texButtonPressed[2], 0)));
 	
-	/*for (int i = 0; i < 3; i++) {
+	
+	for (int i = 0; i < textOptions.size(); i++) {
 		textOptions[i].setFont(*font);
-		textOptions[i].setString("*options[i]");
-		textOptions[i].setPosition(buttonCoords[i]);
-		
-		sprButtonPlay->setPosition(buttonCoords[i]);
+		textOptions[i].setString(options[i]);
+		textOptions[i].setCharacterSize(30);
+		textOptions[i].setFillColor(sf::Color::Black);
+		textOptions[i].setPosition(*new sf::Vector2f(buttonCoords[i] - calculate_obj_offset(0, 0, &textOptions[i])));
 
 		
-	}*/
+	}
 
 }
 
@@ -197,9 +211,9 @@ void MM::draw_all() {
 	window->draw(*sprButtonSettings);
 	window->draw(*sprButtonQuit);
 
-	//for (auto t : textOptions) {
-	//	window->draw(t);
-	//}
+	for (auto t : textOptions) {
+		window->draw(t);
+	}
 
 	
 	window->display();

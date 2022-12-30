@@ -20,10 +20,9 @@ class MainMenu {
 	sf::Sprite* logo;
 	
 
-
-	std::vector<sf::Texture*> texButtons;
-	std::vector<sf::Texture*> texButtonHighlighted;
-	std::vector<sf::Texture*> texButtonPressed;
+	std::vector<sf::Texture> texButtons;
+	std::vector<sf::Texture> texButtonHighlighted;
+	std::vector<sf::Texture> texButtonPressed;
 
 	sf::Sprite* sprButtonPlay;
 	sf::Sprite* sprButtonSettings;
@@ -40,6 +39,7 @@ class MainMenu {
 
 protected:
 	void set_values();
+	sf::Vector2f calculate_obj_offset(sf::Sprite* sprite, sf::Texture* texture, sf::Text* text);
 	void loop_events();
 	void draw_all();
 
