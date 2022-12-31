@@ -106,6 +106,12 @@ void MM::set_values() {
 	
 	font->loadFromFile("Resources/Fonts/Blokletters-Balpen.ttf");
 
+	pos = 0;
+	clicked = false;
+	hovered = false;
+	
+	mouseCoords = {0, 0};
+	pos_mouse = { 0, 0 };
 	
 	sf::Vector2f logoCoords;
 
@@ -187,10 +193,60 @@ void MM::loop_events() {
 		if (event.type == sf::Event::Resized) 
 		{
 			window->setView(calcView(window->getSize(), designedWinSize));
-
 		}
 
+		pos_mouse = sf::Mouse::getPosition(*window);
+		mouseCoords = window->mapPixelToCoords(pos_mouse);
+
+		sf::FloatRect playRect = sprButtonPlay->getGlobalBounds();
+		sf::FloatRect settingsRect = sprButtonSettings->getGlobalBounds();
+		sf::FloatRect quitRect = sprButtonQuit->getGlobalBounds();
+
+		if (playRect.contains(mouseCoords)) {
+			sprButtonPlay->setTexture(texButtonHighlighted[0]);
+			sprButtonSettings->setTexture(texButtons[1]);
+			sprButtonQuit->setTexture(texButtons[2]);
+			hovered = true;
+			pos = 0;
+		}
+		else if (settingsRect.contains(mouseCoords)) {
+			sprButtonSettings->setTexture(texButtonHighlighted[1]);
+			sprButtonPlay->setTexture(texButtons[0]);
+			sprButtonQuit->setTexture(texButtons[2]);
+			hovered = true;
+			pos = 1;
+		}
+		else if (quitRect.contains(mouseCoords)) {
+			sprButtonQuit->setTexture(texButtonHighlighted[2]);
+			sprButtonPlay->setTexture(texButtons[0]);
+			sprButtonSettings->setTexture(texButtons[1]);
+			hovered = true;
+			pos = 2;
+		}
+		else {
+			sprButtonPlay->setTexture(texButtons[0]);
+			sprButtonSettings->setTexture(texButtons[1]);
+			sprButtonQuit->setTexture(texButtons[2]);
+			hovered = false;
+		}
+		
 		//continue if statements
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && hovered) {
+			if (sprButtonPlay->getTexture() == &texButtonHighlighted[0]) {
+				sprButtonPlay->setTexture(texButtonPressed[0]);
+				clicked = true;
+			}
+			else if (sprButtonSettings->getTexture() == &texButtonHighlighted[1]) {
+				sprButtonSettings->setTexture(texButtonPressed[1]);
+				clicked = true;
+			}
+			else if (sprButtonQuit->getTexture() == &texButtonHighlighted[2]) {
+				sprButtonQuit->setTexture(texButtonPressed[2]);
+				window->close();
+				clicked = true;
+			}
+		}
 
 	}
 	

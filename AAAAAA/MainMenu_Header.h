@@ -6,7 +6,7 @@
 class MainMenu {
 	int pos;
 	int buttonCount;
-	bool pressed, theselect;
+	bool clicked, hovered;
 
 
 	sf::RenderWindow* window;
