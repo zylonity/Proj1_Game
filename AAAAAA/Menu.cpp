@@ -166,7 +166,7 @@ void MM::set_values() {
 	for (int i = 0; i < textOptions.size(); i++) {
 		textOptions[i].setFont(*font);
 		textOptions[i].setString(options[i]);
-		textOptions[i].setCharacterSize(30);
+		textOptions[i].setCharacterSize(20);
 		textOptions[i].setFillColor(sf::Color::Black);
 		textOptions[i].setPosition(*new sf::Vector2f(buttonCoords[i] - calculate_obj_offset(0, 0, &textOptions[i])));
 
