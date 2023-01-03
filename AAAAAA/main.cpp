@@ -1,4 +1,5 @@
 #include "MainMenu_Header.h"
+#include "SettingsMenu_Header.h"
 #include <SFML\Graphics.hpp>
 
 int main() {
@@ -8,5 +9,7 @@ int main() {
 	//Once run_menu's done continue here
 	delete menu;
 	menu = nullptr;
+	
+
 	return 1;
 }

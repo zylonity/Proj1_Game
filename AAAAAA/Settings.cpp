@@ -4,30 +4,47 @@ typedef SettingsMenu SS;
 
 
 //set pointers
-SS::Settings() {
-	window = new sf::RenderWindow();
+SS::SettingsMenu() {
+	settingsWindow = new sf::RenderWindow();
 
-	
+	font = new sf::Font();
+	image = new sf::Texture();
+	background = new sf::Sprite();
+
+	set_values();
 }
 
 
 //delete pointers
-SS::~Settings() {
-	
+SS::~SettingsMenu() {
+	delete settingsWindow;
+	delete font;
+	delete image;
+	delete background;
 }
 
-SS:set_values() {
-
+void SS::set_values() {
+	settingsWindow->create(sf::VideoMode(1280, 720), "wOah");
 }
 
-SS::loop_events() {
-	
+void SS::loop_events() {
+	sf::Event event;
+	while (settingsWindow->pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+			settingsWindow->close();
+	}
 }
 
-SS::draw_all() {
-	
+void SS::draw_all() {
+	settingsWindow->clear();
+	settingsWindow->display();
 }
 
-SS::open_settings() {
-	
+void SS::open_settings() {
+	while (settingsWindow->isOpen())
+	{
+		loop_events();
+		draw_all();
+	}
 }

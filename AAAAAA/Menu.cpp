@@ -1,4 +1,6 @@
 #include "MainMenu_Header.h"
+#include "SettingsMenu_Header.h"
+
 #include <assert.h>
 
 typedef MainMenu MM;
@@ -232,15 +234,25 @@ void MM::loop_events() {
 		
 		//continue if statements
 
+		//Play button
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && hovered) {
 			if (sprButtonPlay->getTexture() == &texButtonHighlighted[0]) {
 				sprButtonPlay->setTexture(texButtonPressed[0]);
 				clicked = true;
 			}
+			//Settings
 			else if (sprButtonSettings->getTexture() == &texButtonHighlighted[1]) {
 				sprButtonSettings->setTexture(texButtonPressed[1]);
+				window->close();
+				SettingsMenu* settings = new SettingsMenu();
+				settings->open_settings();
+
+				delete settings;
+				settings = nullptr;
+
 				clicked = true;
 			}
+			//Quit
 			else if (sprButtonQuit->getTexture() == &texButtonHighlighted[2]) {
 				sprButtonQuit->setTexture(texButtonPressed[2]);
 				window->close();
