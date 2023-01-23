@@ -36,4 +36,53 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\1_highlighted.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\1_pressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\2_highlighted.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\2_pressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\3_highlighted.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\3_pressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\BG.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\TitleScreen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\SharedMenuButtons\Back1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\SharedMenuButtons\Back2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\SharedMenuButtons\Back3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="bin\Resources\Fonts\Blokletters-Balpen.ttf" />
+    <Font Include="bin\Resources\Fonts\Blokletters-Potlood.ttf" />
+    <Font Include="bin\Resources\Fonts\Blokletters-Viltstift.ttf" />
+  </ItemGroup>
 </Project>

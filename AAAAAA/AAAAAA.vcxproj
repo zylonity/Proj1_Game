@@ -142,6 +142,27 @@
     <ClInclude Include="MainMenu_Header.h" />
     <ClInclude Include="SettingsMenu_Header.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\Resources\Textures\BG.png" />
+    <Image Include="bin\Resources\Textures\SharedMenuButtons\Back1.png" />
+    <Image Include="bin\Resources\Textures\SharedMenuButtons\Back2.png" />
+    <Image Include="bin\Resources\Textures\SharedMenuButtons\Back3.png" />
+    <Image Include="bin\Resources\Textures\TitleScreen.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\1.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\1_highlighted.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\1_pressed.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\2.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\2_highlighted.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\2_pressed.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\3.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\3_highlighted.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\3_pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="bin\Resources\Fonts\Blokletters-Balpen.ttf" />
+    <Font Include="bin\Resources\Fonts\Blokletters-Potlood.ttf" />
+    <Font Include="bin\Resources\Fonts\Blokletters-Viltstift.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
