@@ -9,8 +9,6 @@ typedef MainMenu MM;
 
 //assign the values to the pointers
 MM::MainMenu() {
-	menuRunning = true;
-
 	font = new sf::Font();
 	bgImage = new sf::Texture();
 	logoImage = new sf::Texture();
@@ -41,27 +39,6 @@ MM::~MainMenu() {
 	delete sprButtonSettings;
 	delete sprButtonQuit;
 	
-}
-
-
-sf::Vector2f MM::calculate_obj_offset(sf::Sprite* sprite, sf::Texture* texture, sf::Text* text) {
-	
-	if (sprite != 0) {
-		sf::Vector2f offset = sf::Vector2f(sprite->getGlobalBounds().width / 2, sprite->getGlobalBounds().height / 2);
-		return offset;
-	}
-	else if (texture != 0) {
-		sf::Vector2f offset = sf::Vector2f(texture->getSize().x / 2, texture->getSize().y / 2);
-		return offset;
-	}
-	else if (text != 0) {
-		sf::Vector2f offset = sf::Vector2f(text->getGlobalBounds().width / 2, text->getGlobalBounds().height / 2);
-		return offset;
-	}
-	else {
-		return sf::Vector2f(0, 0);
-	}
-
 }
 
 void MM::set_values() {
@@ -129,9 +106,9 @@ void MM::set_values() {
 	
 
 	//Set the button positions
-	sprButtonPlay->setPosition(*new sf::Vector2f(buttonCoords[0] - calculate_obj_offset(0, &texButtonPressed[0], 0))); //gets the coordinates and adjusts for button size
-	sprButtonSettings->setPosition(*new sf::Vector2f(buttonCoords[1] - calculate_obj_offset(0, &texButtonPressed[1], 0)));
-	sprButtonQuit->setPosition(*new sf::Vector2f(buttonCoords[2] - calculate_obj_offset(0, &texButtonPressed[2], 0)));
+	sprButtonPlay->setPosition(*new sf::Vector2f(buttonCoords[0] - gameWin.calculate_obj_offset(0, &texButtons[0], 0))); //gets the coordinates and adjusts for button size
+	sprButtonSettings->setPosition(*new sf::Vector2f(buttonCoords[1] - gameWin.calculate_obj_offset(0, &texButtons[1], 0)));
+	sprButtonQuit->setPosition(*new sf::Vector2f(buttonCoords[2] - gameWin.calculate_obj_offset(0, &texButtons[2], 0)));
 	
 	
 	for (int i = 0; i < textOptions.size(); i++) {
@@ -139,7 +116,7 @@ void MM::set_values() {
 		textOptions[i].setString(options[i]);
 		textOptions[i].setCharacterSize(20);
 		textOptions[i].setFillColor(sf::Color::Black);
-		textOptions[i].setPosition(*new sf::Vector2f(buttonCoords[i] - calculate_obj_offset(0, 0, &textOptions[i])));
+		textOptions[i].setPosition(*new sf::Vector2f(buttonCoords[i] - gameWin.calculate_obj_offset(0, 0, &textOptions[i])));
 
 		
 	}
@@ -154,7 +131,7 @@ void MM::set_values() {
 void MM::loop_events() {
 
 	sf::Event event;
-	while (gameWin.window->pollEvent(event) && menuRunning)
+	while (gameWin.window->pollEvent(event) && gameWin.currentScreen == 1)
 	{
 		if (event.type == sf::Event::Closed) 
 		{
@@ -179,7 +156,13 @@ void MM::loop_events() {
 			sprButtonSettings->setTexture(texButtons[1]);
 			sprButtonQuit->setTexture(texButtons[2]);
 			hovered = true;
-			pos = 0;
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sprButtonPlay->setTexture(texButtonPressed[0]);
+				clicked = true;
+			}
+			
+			pos = 1;
 		}
 		//deal with settings button highlights
 		else if (settingsRect.contains(mouseCoords)) {
@@ -187,7 +170,13 @@ void MM::loop_events() {
 			sprButtonPlay->setTexture(texButtons[0]);
 			sprButtonQuit->setTexture(texButtons[2]);
 			hovered = true;
-			pos = 1;
+			
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sprButtonSettings->setTexture(texButtonPressed[1]);
+				clicked = true;
+			}
+			
+			pos = 2;
 		}
 		//deal with quit button highlights
 		else if (quitRect.contains(mouseCoords)) {
@@ -195,41 +184,50 @@ void MM::loop_events() {
 			sprButtonPlay->setTexture(texButtons[0]);
 			sprButtonSettings->setTexture(texButtons[1]);
 			hovered = true;
-			pos = 2;
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sprButtonQuit->setTexture(texButtonPressed[2]);
+				clicked = true;
+			}
+			
+			pos = 3;
 		}
 		else {
 			sprButtonPlay->setTexture(texButtons[0]);
 			sprButtonSettings->setTexture(texButtons[1]);
 			sprButtonQuit->setTexture(texButtons[2]);
 			hovered = false;
+			clicked = false;
 		}
 		
-		//continue if statements
+		
+		//On letting go of button
 
-		//Play button
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && hovered) {
-			if (sprButtonPlay->getTexture() == &texButtonHighlighted[0]) {
-				sprButtonPlay->setTexture(texButtonPressed[0]);
-				clicked = true;
+		if (event.type == sf::Event::MouseButtonReleased) {
+			
+			if (clicked) {
+				//Play
+				if (pos == 1) {
+					
+				}
+				//Settings
+				else if (pos == 2) {
+					gameWin.currentScreen = 3;
+					gameWin.window->clear();
+					
+
+					
+				}
+				//Quit
+				else if (pos == 3) {
+					gameWin.window->close();
+				}
 			}
-			//Settings
-			else if (sprButtonSettings->getTexture() == &texButtonHighlighted[1]) {
-				sprButtonSettings->setTexture(texButtonPressed[1]);
-				gameWin.window->clear();
-
-				gameWin.currentScreen = 2;
-				menuRunning = false;
-
-
-				clicked = true;
-			}
-			//Quit
-			else if (sprButtonQuit->getTexture() == &texButtonHighlighted[2]) {
-				sprButtonQuit->setTexture(texButtonPressed[2]);
-				gameWin.window->close();
-				clicked = true;
-			}
+			
 		}
+		
+		
+		
 
 	}
 	
@@ -262,7 +260,7 @@ void MM::draw_all() {
 //what is needed to run the menu
 void MM::run_menu(GameWindow* tGameWin) {
 	gameWin = *tGameWin;
-	while (gameWin.window->isOpen() && menuRunning)
+	while (gameWin.window->isOpen() && gameWin.currentScreen == 1)
 	{
 		loop_events();
 		draw_all();

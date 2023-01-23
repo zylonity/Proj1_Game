@@ -7,7 +7,6 @@ class MainMenu {
 	int pos;
 	int buttonCount;
 	bool clicked, hovered;
-	bool menuRunning;
 
 	GameWindow gameWin;
 	
@@ -37,9 +36,9 @@ class MainMenu {
 
 protected:
 	void set_values();
-	sf::Vector2f calculate_obj_offset(sf::Sprite* sprite, sf::Texture* texture, sf::Text* text);
 	void loop_events();
 	void draw_all();
+
 
 
 public:

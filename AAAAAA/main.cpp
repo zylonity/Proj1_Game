@@ -38,6 +38,27 @@ sf::View GameWindow::calculate_viewport(const sf::Vector2u& windowsize, const sf
 	return view;
 }
 
+sf::Vector2f GameWindow::calculate_obj_offset(sf::Sprite* sprite, sf::Texture* texture, sf::Text* text) {
+
+	if (sprite != 0) {
+		sf::Vector2f offset = sf::Vector2f(sprite->getGlobalBounds().width / 2, sprite->getGlobalBounds().height / 2);
+		return offset;
+	}
+	else if (texture != 0) {
+		sf::Vector2f offset = sf::Vector2f(texture->getSize().x / 2, texture->getSize().y / 2);
+		return offset;
+	}
+	else if (text != 0) {
+		sf::Vector2f offset = sf::Vector2f(text->getGlobalBounds().width / 2, text->getGlobalBounds().height / 2);
+		return offset;
+	}
+	else {
+		return sf::Vector2f(0, 0);
+	}
+	
+	return sf::Vector2f(0, 0);
+}
+
 
 int main() {
 
