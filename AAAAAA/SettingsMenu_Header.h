@@ -1,10 +1,11 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
+#include "GameWindow_Header.h"
 
 class SettingsMenu {
 	
-	sf::RenderWindow* settingsWindow;
+	GameWindow gameWin;
 
 	sf::Font* font;
 	sf::Texture* bgImage;
@@ -20,7 +21,7 @@ protected:
 public:
 	SettingsMenu();
 	~SettingsMenu();
-	void open_settings(sf::RenderWindow* ssWindow);
+	void open_settings(GameWindow* gameWindow);
 	
 	
 };
