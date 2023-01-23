@@ -7,7 +7,7 @@ class MainMenu {
 	int pos;
 	int buttonCount;
 	bool clicked, hovered;
-
+	bool closeWindow;
 
 	sf::RenderWindow* window;
 	

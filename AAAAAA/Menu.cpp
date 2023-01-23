@@ -204,6 +204,7 @@ void MM::loop_events() {
 		sf::FloatRect settingsRect = sprButtonSettings->getGlobalBounds();
 		sf::FloatRect quitRect = sprButtonQuit->getGlobalBounds();
 
+		//Deal with play button highlights
 		if (playRect.contains(mouseCoords)) {
 			sprButtonPlay->setTexture(texButtonHighlighted[0]);
 			sprButtonSettings->setTexture(texButtons[1]);
@@ -211,6 +212,7 @@ void MM::loop_events() {
 			hovered = true;
 			pos = 0;
 		}
+		//deal with settings button highlights
 		else if (settingsRect.contains(mouseCoords)) {
 			sprButtonSettings->setTexture(texButtonHighlighted[1]);
 			sprButtonPlay->setTexture(texButtons[0]);
@@ -218,6 +220,7 @@ void MM::loop_events() {
 			hovered = true;
 			pos = 1;
 		}
+		//deal with quit button highlights
 		else if (quitRect.contains(mouseCoords)) {
 			sprButtonQuit->setTexture(texButtonHighlighted[2]);
 			sprButtonPlay->setTexture(texButtons[0]);
@@ -243,9 +246,9 @@ void MM::loop_events() {
 			//Settings
 			else if (sprButtonSettings->getTexture() == &texButtonHighlighted[1]) {
 				sprButtonSettings->setTexture(texButtonPressed[1]);
-				window->close();
+				window->clear();
 				SettingsMenu* settings = new SettingsMenu();
-				settings->open_settings();
+				settings->open_settings(window);
 
 				delete settings;
 				settings = nullptr;

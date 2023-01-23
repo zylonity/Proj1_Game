@@ -7,7 +7,7 @@ class SettingsMenu {
 	sf::RenderWindow* settingsWindow;
 
 	sf::Font* font;
-	sf::Texture* image;
+	sf::Texture* bgImage;
 	sf::Sprite* background;
 
 
@@ -20,7 +20,7 @@ protected:
 public:
 	SettingsMenu();
 	~SettingsMenu();
-	void open_settings();
+	void open_settings(sf::RenderWindow* ssWindow);
 	
 	
 };
