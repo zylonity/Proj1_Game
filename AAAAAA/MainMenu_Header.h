@@ -42,6 +42,7 @@ protected:
 
 
 public:
+	bool mainMenuOpen;
 	MainMenu();
 	~MainMenu();
 	void run_menu(GameWindow* gameWindow);

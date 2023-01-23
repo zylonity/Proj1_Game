@@ -6,7 +6,6 @@
 class SettingsMenu {
 	int pos;
 	bool clicked, hovered;
-
 	
 	GameWindow gameWin;
 
@@ -35,6 +34,7 @@ protected:
 public:
 	SettingsMenu();
 	~SettingsMenu();
+	bool settingsOpen;
 	void open_settings(GameWindow* gameWindow);
 	
 	

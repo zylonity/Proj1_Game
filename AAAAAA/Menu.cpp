@@ -9,6 +9,7 @@ typedef MainMenu MM;
 
 //assign the values to the pointers
 MM::MainMenu() {
+	mainMenuOpen = true;
 	font = new sf::Font();
 	bgImage = new sf::Texture();
 	logoImage = new sf::Texture();
@@ -131,7 +132,7 @@ void MM::set_values() {
 void MM::loop_events() {
 
 	sf::Event event;
-	while (gameWin.window->pollEvent(event) && gameWin.currentScreen == 1)
+	while (gameWin.window->pollEvent(event) && mainMenuOpen)
 	{
 		if (event.type == sf::Event::Closed) 
 		{
@@ -212,9 +213,9 @@ void MM::loop_events() {
 				}
 				//Settings
 				else if (pos == 2) {
-					gameWin.currentScreen = 3;
+					gameWin.currentScreen = 2;
 					gameWin.window->clear();
-					
+					mainMenuOpen = false;
 
 					
 				}
@@ -260,7 +261,8 @@ void MM::draw_all() {
 //what is needed to run the menu
 void MM::run_menu(GameWindow* tGameWin) {
 	gameWin = *tGameWin;
-	while (gameWin.window->isOpen() && gameWin.currentScreen == 1)
+	mainMenuOpen = true;
+	while (gameWin.window->isOpen() && mainMenuOpen)
 	{
 		loop_events();
 		draw_all();

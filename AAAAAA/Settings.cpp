@@ -7,6 +7,8 @@ typedef SettingsMenu SS;
 //set pointers
 SS::SettingsMenu() {
 
+	settingsOpen = true;
+
 	font = new sf::Font();
 	bgImage = new sf::Texture();
 	background = new sf::Sprite();
@@ -64,56 +66,62 @@ void SS::set_values() {
 
 void SS::loop_events() {
 	sf::Event event;
-	while (gameWin.window->pollEvent(event))
+	while (gameWin.window->pollEvent(event) && settingsOpen)
 	{
-		if (event.type == sf::Event::Closed)
+		if (event.type == sf::Event::Closed) {
 			gameWin.window->close();
-	}
-
-	if (event.type == sf::Event::Resized)
-	{
-		gameWin.window->setView(gameWin.calculate_viewport(gameWin.window->getSize(), gameWin.designedWinSize));
-	}
-	
-	//grabs mouse pos
-	pos_mouse = sf::Mouse::getPosition(*gameWin.window);
-	mouseCoords = gameWin.window->mapPixelToCoords(pos_mouse);
-
-	sf::FloatRect backRect = sprButtonBack->getGlobalBounds();
-
-	//deal with play button highlights
-	if (backRect.contains(mouseCoords)) {
-		sprButtonBack->setTexture(texButtonHighlighted[0]);
-		//don't forget to reset whatever other buttons you add
-		hovered = true;
-
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			sprButtonBack->setTexture(texButtonPressed[0]);
-			clicked = true;
 		}
 		
-		pos = 1;
-		
-	}
-	else {
-		sprButtonBack->setTexture(texButtons[0]);
-		hovered = false;
-		clicked = false;
+		if (event.type == sf::Event::Resized)
+		{
+			gameWin.window->setView(gameWin.calculate_viewport(gameWin.window->getSize(), gameWin.designedWinSize));
+		}
 
-	}
+		//grabs mouse pos
+		pos_mouse = sf::Mouse::getPosition(*gameWin.window);
+		mouseCoords = gameWin.window->mapPixelToCoords(pos_mouse);
 
-	//on letting go of button
-	if (event.type == sf::Event::MouseButtonReleased) {
-		if (clicked) {
-			if (pos == 1) {
-				
-				gameWin.currentScreen = 1;
-				gameWin.window->clear();
-				
-				
+		sf::FloatRect backRect = sprButtonBack->getGlobalBounds();
+
+		//deal with play button highlights
+		if (backRect.contains(mouseCoords)) {
+			sprButtonBack->setTexture(texButtonHighlighted[0]);
+			//don't forget to reset whatever other buttons you add
+			hovered = true;
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sprButtonBack->setTexture(texButtonPressed[0]);
+				clicked = true;
+			}
+
+			pos = 1;
+
+		}
+		else {
+			sprButtonBack->setTexture(texButtons[0]);
+			hovered = false;
+			clicked = false;
+
+		}
+
+		//on letting go of button
+		if (event.type == sf::Event::MouseButtonReleased) {
+			if (clicked) {
+				if (pos == 1) {
+
+					gameWin.window->clear();
+					gameWin.currentScreen = 1;
+					settingsOpen = false;
+
+
+
+				}
 			}
 		}
+
 	}
+
+	
 	
 }
 
@@ -130,7 +138,8 @@ void SS::draw_all() {
 
 void SS::open_settings(GameWindow* tGameWin) {
 	gameWin = *tGameWin;
-	while (gameWin.window->isOpen())
+	settingsOpen = true;
+	while (gameWin.window->isOpen() && settingsOpen)
 	{
 		loop_events();
 		draw_all();

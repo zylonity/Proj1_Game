@@ -6,7 +6,7 @@
 GameWindow::GameWindow() {
 	window = new sf::RenderWindow();
 	designedWinSize = sf::Vector2u(1280, 720);
-	currentScreen = 1;
+
 }
 
 GameWindow::~GameWindow() {
@@ -68,6 +68,7 @@ int main() {
 	
 	gameWindow->window->create(sf::VideoMode(1280, 720), "wOah");
 
+	gameWindow->currentScreen = 1;
 	
 	while (gameWindow->window->isOpen()) {
 		sf::Event event;
@@ -79,10 +80,13 @@ int main() {
 			
 		}
 
+		//manage which menu goes where depending on the ID
 		switch (gameWindow->currentScreen) {
 		case 1:
+			printf("1");
 			menu->run_menu(gameWindow);
 		case 2:
+			printf("2");
 			settings->open_settings(gameWindow);
 		}
 

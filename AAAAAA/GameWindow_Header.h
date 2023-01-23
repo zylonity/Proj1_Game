@@ -9,6 +9,7 @@ class GameWindow {
 	
 
 public:
+	bool justOpened;
 	int currentScreen;
 	sf::RenderWindow* window;
 	sf::Vector2u designedWinSize;
@@ -17,7 +18,6 @@ public:
 	GameWindow();
 	~GameWindow();
 	void run_window();
-	void switchToScreen(int id);
 
 };
 
