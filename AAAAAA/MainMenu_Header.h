@@ -1,17 +1,15 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-
+#include "GameWindow_Header.h"
 
 class MainMenu {
 	int pos;
 	int buttonCount;
 	bool clicked, hovered;
+	bool menuRunning;
 
-
-	sf::RenderWindow* window;
-	
-	sf::Vector2u designedWinSize;
+	GameWindow gameWin;
 	
 	sf::Font* font;
 	sf::Texture* bgImage;
@@ -47,7 +45,7 @@ protected:
 public:
 	MainMenu();
 	~MainMenu();
-	void run_menu();
+	void run_menu(GameWindow* gameWindow);
 
 };
 

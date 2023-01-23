@@ -138,6 +138,7 @@
     <ClCompile Include="Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameWindow_Header.h" />
     <ClInclude Include="MainMenu_Header.h" />
     <ClInclude Include="SettingsMenu_Header.h" />
   </ItemGroup>
