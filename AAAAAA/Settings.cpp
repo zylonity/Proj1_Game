@@ -1,4 +1,3 @@
-#include "MainMenu_Header.h"
 #include "SettingsMenu_Header.h"
 
 typedef SettingsMenu SS;
@@ -24,6 +23,8 @@ SS::~SettingsMenu() {
 	delete font;
 	delete bgImage;
 	delete background;
+
+	delete pBackButton;
 
 }
 

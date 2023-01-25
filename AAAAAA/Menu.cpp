@@ -1,6 +1,4 @@
 #include "MainMenu_Header.h"
-#include "GameWindow_Header.h"
-#include "SettingsMenu_Header.h"
 
 #include <assert.h>
 
