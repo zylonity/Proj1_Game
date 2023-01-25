@@ -7,6 +7,9 @@ GameWindow::GameWindow() {
 	window = new sf::RenderWindow();
 	designedWinSize = sf::Vector2u(1280, 720);
 
+	mouseCoords = { 0, 0 };
+	pos_mouse = { 0, 0 };
+
 }
 
 GameWindow::~GameWindow() {
@@ -59,6 +62,10 @@ sf::Vector2f GameWindow::calculate_obj_offset(sf::Sprite* sprite, sf::Texture* t
 	return sf::Vector2f(0, 0);
 }
 
+void GameWindow::update_mouse() {
+	pos_mouse = sf::Mouse::getPosition(*window);
+	mouseCoords = window->mapPixelToCoords(pos_mouse);
+}
 
 int main() {
 

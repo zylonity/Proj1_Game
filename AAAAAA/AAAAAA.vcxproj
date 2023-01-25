@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -144,20 +145,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bin\Resources\Textures\BG.png" />
-    <Image Include="bin\Resources\Textures\SharedMenuButtons\Back1.png" />
-    <Image Include="bin\Resources\Textures\SharedMenuButtons\Back2.png" />
-    <Image Include="bin\Resources\Textures\SharedMenuButtons\Back3.png" />
     <Image Include="bin\Resources\Textures\SharedMenuButtons\BackArrow.png" />
     <Image Include="bin\Resources\Textures\TitleScreen.png" />
-    <Image Include="bin\Resources\Textures\TitleScreenButtons\1.png" />
-    <Image Include="bin\Resources\Textures\TitleScreenButtons\1_highlighted.png" />
-    <Image Include="bin\Resources\Textures\TitleScreenButtons\1_pressed.png" />
-    <Image Include="bin\Resources\Textures\TitleScreenButtons\2.png" />
-    <Image Include="bin\Resources\Textures\TitleScreenButtons\2_highlighted.png" />
-    <Image Include="bin\Resources\Textures\TitleScreenButtons\2_pressed.png" />
-    <Image Include="bin\Resources\Textures\TitleScreenButtons\3.png" />
-    <Image Include="bin\Resources\Textures\TitleScreenButtons\3_highlighted.png" />
-    <Image Include="bin\Resources\Textures\TitleScreenButtons\3_pressed.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\play_button.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\quit_button.png" />
+    <Image Include="bin\Resources\Textures\TitleScreenButtons\settings_button.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="bin\Resources\Fonts\Blokletters-Balpen.ttf" />

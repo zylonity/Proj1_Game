@@ -14,14 +14,8 @@ class SettingsMenu {
 	sf::Texture* bgImage;
 	sf::Sprite* background;
 
-	sf::IntRect* rectBackArrow;
-	sf::Texture* texBackArrow;
-	sf::Sprite* sprBackArrow;
+	UIButton* pBackButton;
 	
-
-	sf::Vector2i pos_mouse;
-	sf::Vector2f mouseCoords;
-
 	std::vector<sf::Vector2f> buttonCoords;
 
 
