@@ -16,10 +16,9 @@ MM::MainMenu() {
 	background = new sf::Sprite();
 	logo = new sf::Sprite();
 	
-	sprButtonPlay = new sf::Sprite();
-	sprButtonSettings = new sf::Sprite();
-	sprButtonQuit = new sf::Sprite();
-	
+	playButton = new UIButton();
+	settingsButton = new UIButton();
+	quitButton = new UIButton();
 	
 	set_values();
 }
@@ -36,9 +35,9 @@ MM::~MainMenu() {
 	delete logo;
 
 
-	delete sprButtonPlay;
-	delete sprButtonSettings;
-	delete sprButtonQuit;
+	delete playButton;
+	delete settingsButton;
+	delete quitButton;
 	
 }
 
@@ -59,8 +58,6 @@ void MM::set_values() {
 	clicked = false;
 	hovered = false;
 	
-	mouseCoords = {0, 0};
-	pos_mouse = { 0, 0 };
 	
 	sf::Vector2f logoCoords;
 
@@ -76,40 +73,14 @@ void MM::set_values() {
 	
 	textOptions.resize(3);
 
+	playButton->create_button(new std::string("Resources/Textures/TitleScreenButtons/play_button.png"), 3);
+	settingsButton->create_button(new std::string("Resources/Textures/TitleScreenButtons/settings_button.png"), 3);
+	quitButton->create_button(new std::string("Resources/Textures/TitleScreenButtons/quit_button.png"), 3);
 
+	playButton->set_position(buttonCoords[0]);
+	settingsButton->set_position(buttonCoords[1]);
+	quitButton->set_position(buttonCoords[2]);
 	
-	texButtons.resize(3);
-	texButtonHighlighted.resize(3);
-	texButtonPressed.resize(3);
-
-	//Load original textures
-	texButtons[0].loadFromFile("Resources/Textures/TitleScreenButtons/1.png");
-	texButtons[1].loadFromFile("Resources/Textures/TitleScreenButtons/2.png");
-	texButtons[2].loadFromFile("Resources/Textures/TitleScreenButtons/3.png");
-
-
-	//Load highlighted textures
-	texButtonHighlighted[0].loadFromFile("Resources/Textures/TitleScreenButtons/1_highlighted.png");
-	texButtonHighlighted[1].loadFromFile("Resources/Textures/TitleScreenButtons/2_highlighted.png");
-	texButtonHighlighted[2].loadFromFile("Resources/Textures/TitleScreenButtons/3_highlighted.png");
-
-
-	//Load pressed textures
-	texButtonPressed[0].loadFromFile("Resources/Textures/TitleScreenButtons/1_pressed.png");
-	texButtonPressed[1].loadFromFile("Resources/Textures/TitleScreenButtons/2_pressed.png");
-	texButtonPressed[2].loadFromFile("Resources/Textures/TitleScreenButtons/3_pressed.png");
-	
-	
-	//Set the original button sprites
-	sprButtonPlay->setTexture(texButtons[0]);
-	sprButtonSettings->setTexture(texButtons[1]);
-	sprButtonQuit->setTexture(texButtons[2]);
-	
-
-	//Set the button positions
-	sprButtonPlay->setPosition(*new sf::Vector2f(buttonCoords[0] - gameWin.calculate_obj_offset(0, &texButtons[0], 0))); //gets the coordinates and adjusts for button size
-	sprButtonSettings->setPosition(*new sf::Vector2f(buttonCoords[1] - gameWin.calculate_obj_offset(0, &texButtons[1], 0)));
-	sprButtonQuit->setPosition(*new sf::Vector2f(buttonCoords[2] - gameWin.calculate_obj_offset(0, &texButtons[2], 0)));
 	
 	
 	for (int i = 0; i < textOptions.size(); i++) {
@@ -144,88 +115,31 @@ void MM::loop_events() {
 			gameWin.window->setView(gameWin.calculate_viewport(gameWin.window->getSize(), gameWin.designedWinSize));
 		}
 
-		pos_mouse = sf::Mouse::getPosition(*gameWin.window);
-		mouseCoords = gameWin.window->mapPixelToCoords(pos_mouse);
+		gameWin.update_mouse();
 
-		sf::FloatRect playRect = sprButtonPlay->getGlobalBounds();
-		sf::FloatRect settingsRect = sprButtonSettings->getGlobalBounds();
-		sf::FloatRect quitRect = sprButtonQuit->getGlobalBounds();
+		playButton->button_detection(gameWin.mouseCoords, event); 
+		settingsButton->button_detection(gameWin.mouseCoords, event);
+		quitButton->button_detection(gameWin.mouseCoords, event);
+		
+		if (playButton->validClick) {
+			playButton->reset_button();
 
-		//Deal with play button highlights
-		if (playRect.contains(mouseCoords)) {
-			sprButtonPlay->setTexture(texButtonHighlighted[0]);
-			sprButtonSettings->setTexture(texButtons[1]);
-			sprButtonQuit->setTexture(texButtons[2]);
-			hovered = true;
-
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				sprButtonPlay->setTexture(texButtonPressed[0]);
-				clicked = true;
-			}
-			
-			pos = 1;
 		}
-		//deal with settings button highlights
-		else if (settingsRect.contains(mouseCoords)) {
-			sprButtonSettings->setTexture(texButtonHighlighted[1]);
-			sprButtonPlay->setTexture(texButtons[0]);
-			sprButtonQuit->setTexture(texButtons[2]);
-			hovered = true;
-			
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				sprButtonSettings->setTexture(texButtonPressed[1]);
-				clicked = true;
-			}
-			
-			pos = 2;
-		}
-		//deal with quit button highlights
-		else if (quitRect.contains(mouseCoords)) {
-			sprButtonQuit->setTexture(texButtonHighlighted[2]);
-			sprButtonPlay->setTexture(texButtons[0]);
-			sprButtonSettings->setTexture(texButtons[1]);
-			hovered = true;
 
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				sprButtonQuit->setTexture(texButtonPressed[2]);
-				clicked = true;
-			}
-			
-			pos = 3;
+		if (settingsButton->validClick) {
+			settingsButton->reset_button();
+			gameWin.currentScreen = 2;
+			gameWin.window->clear();
+			mainMenuOpen = false;
+
 		}
-		else {
-			sprButtonPlay->setTexture(texButtons[0]);
-			sprButtonSettings->setTexture(texButtons[1]);
-			sprButtonQuit->setTexture(texButtons[2]);
-			hovered = false;
-			clicked = false;
+
+		if (quitButton->validClick) {
+			quitButton->reset_button();
+			gameWin.window->close();
+
 		}
 		
-		
-		//On letting go of button
-
-		if (event.type == sf::Event::MouseButtonReleased) {
-			
-			if (clicked) {
-				//Play
-				if (pos == 1) {
-					
-				}
-				//Settings
-				else if (pos == 2) {
-					gameWin.currentScreen = 2;
-					gameWin.window->clear();
-					mainMenuOpen = false;
-
-					
-				}
-				//Quit
-				else if (pos == 3) {
-					gameWin.window->close();
-				}
-			}
-			
-		}
 		
 		
 		
@@ -245,9 +159,9 @@ void MM::draw_all() {
 	gameWin.window->draw(*background);
 	gameWin.window->draw(*logo);
 
-	gameWin.window->draw(*sprButtonPlay);
-	gameWin.window->draw(*sprButtonSettings);
-	gameWin.window->draw(*sprButtonQuit);
+	gameWin.window->draw(*playButton->sprButton);
+	gameWin.window->draw(*settingsButton->sprButton);
+	gameWin.window->draw(*quitButton->sprButton);
 
 	for (auto t : textOptions) {
 		gameWin.window->draw(t);

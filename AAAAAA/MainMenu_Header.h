@@ -17,16 +17,9 @@ class MainMenu {
 	sf::Sprite* logo;
 	
 
-	std::vector<sf::Texture> texButtons;
-	std::vector<sf::Texture> texButtonHighlighted;
-	std::vector<sf::Texture> texButtonPressed;
-
-	sf::Sprite* sprButtonPlay;
-	sf::Sprite* sprButtonSettings;
-	sf::Sprite* sprButtonQuit;
-	
-	sf::Vector2i pos_mouse;
-	sf::Vector2f mouseCoords;
+	UIButton* playButton;
+	UIButton* settingsButton;
+	UIButton* quitButton;
 
 	std::vector<const char*>options;
 	std::vector<sf::Vector2f> buttonCoords;

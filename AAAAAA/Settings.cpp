@@ -13,9 +13,7 @@ SS::SettingsMenu() {
 	bgImage = new sf::Texture();
 	background = new sf::Sprite();
 
-	texBackArrow = new sf::Texture();
-	sprBackArrow = new sf::Sprite();
-
+	pBackButton = new UIButton();
 
 	set_values();
 }
@@ -27,8 +25,6 @@ SS::~SettingsMenu() {
 	delete bgImage;
 	delete background;
 
-	delete texBackArrow;
-	delete sprBackArrow;
 }
 
 void SS::set_values() {
@@ -40,20 +36,12 @@ void SS::set_values() {
 	clicked = false;
 	hovered = false;
 
-	mouseCoords = { 0, 0 };
-	pos_mouse = { 0, 0 };
-
 	buttonCoords = { {100, 50} };
 
+	pBackButton->create_button(new std::string("Resources/Textures/SharedMenuButtons/BackArrow.png"), 3);
 
 
-	rectBackArrow = new sf::IntRect(0, 0, 91, 59);
-	texBackArrow->loadFromFile("Resources/Textures/SharedMenuButtons/BackArrow.png");
-	sprBackArrow->setTexture(*texBackArrow);
-	sprBackArrow->setTextureRect(*rectBackArrow);
-	
-	//Set the position of the sprite
-	sprBackArrow->setPosition(buttonCoords[0]);
+	pBackButton->set_position(buttonCoords[0]);
 	
 
 }
@@ -71,49 +59,16 @@ void SS::loop_events() {
 			gameWin.window->setView(gameWin.calculate_viewport(gameWin.window->getSize(), gameWin.designedWinSize));
 		}
 
-		//grabs mouse pos
-		pos_mouse = sf::Mouse::getPosition(*gameWin.window);
-		mouseCoords = gameWin.window->mapPixelToCoords(pos_mouse);
 
-		sf::FloatRect backRect = sprBackArrow->getGlobalBounds();
-
-		//deal with play button highlights
-		if (backRect.contains(mouseCoords)) {
-			rectBackArrow->left = rectBackArrow->width;
-			sprBackArrow->setTextureRect(*rectBackArrow);
-			//don't forget to reset whatever other buttons you add
-			hovered = true;
-
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				rectBackArrow->left = rectBackArrow->width*2;
-				sprBackArrow->setTextureRect(*rectBackArrow);
-				clicked = true;
-			}
-
-			pos = 1;
-
-		}
-		else {
-			rectBackArrow->left = 0;
-			sprBackArrow->setTextureRect(*rectBackArrow);
-			hovered = false;
-			clicked = false;
-
-		}
+		gameWin.update_mouse();
+		pBackButton->button_detection(gameWin.mouseCoords, event);
 
 		//on letting go of button
-		if (event.type == sf::Event::MouseButtonReleased) {
-			if (clicked) {
-				if (pos == 1) {
-
-					gameWin.window->clear();
-					gameWin.currentScreen = 1;
-					settingsOpen = false;
-
-
-
-				}
-			}
+		if (pBackButton->validClick) {
+			pBackButton->reset_button();
+			gameWin.window->clear();
+			gameWin.currentScreen = 1;
+			settingsOpen = false;
 		}
 
 	}
@@ -128,7 +83,7 @@ void SS::draw_all() {
 	gameWin.window->clear();
 
 	gameWin.window->draw(*background);
-	gameWin.window->draw(*sprBackArrow);
+	gameWin.window->draw(*pBackButton->sprButton);
 
 	gameWin.window->display();
 }
