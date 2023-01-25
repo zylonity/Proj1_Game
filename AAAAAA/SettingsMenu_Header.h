@@ -14,11 +14,10 @@ class SettingsMenu {
 	sf::Texture* bgImage;
 	sf::Sprite* background;
 
-	std::vector<sf::Texture> texButtons;
-	std::vector<sf::Texture> texButtonHighlighted;
-	std::vector<sf::Texture> texButtonPressed;
+	sf::IntRect* rectBackArrow;
+	sf::Texture* texBackArrow;
+	sf::Sprite* sprBackArrow;
 	
-	sf::Sprite* sprButtonBack;
 
 	sf::Vector2i pos_mouse;
 	sf::Vector2f mouseCoords;

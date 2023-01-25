@@ -13,7 +13,9 @@ SS::SettingsMenu() {
 	bgImage = new sf::Texture();
 	background = new sf::Sprite();
 
-	sprButtonBack = new sf::Sprite();
+	texBackArrow = new sf::Texture();
+	sprBackArrow = new sf::Sprite();
+
 
 	set_values();
 }
@@ -24,7 +26,9 @@ SS::~SettingsMenu() {
 	delete font;
 	delete bgImage;
 	delete background;
-	delete sprButtonBack;
+
+	delete texBackArrow;
+	delete sprBackArrow;
 }
 
 void SS::set_values() {
@@ -41,25 +45,15 @@ void SS::set_values() {
 
 	buttonCoords = { {100, 50} };
 
-	texButtons.resize(1);
-	texButtonHighlighted.resize(1);
-	texButtonPressed.resize(1);
-
-	//Load og texture
-	texButtons[0].loadFromFile("Resources/Textures/SharedMenuButtons/Back1.png");
-
-	//load highlighted texture
-	texButtonHighlighted[0].loadFromFile("Resources/Textures/SharedMenuButtons/Back2.png");
-
-	//load pressed texture
-	texButtonPressed[0].loadFromFile("Resources/Textures/SharedMenuButtons/Back3.png");
 
 
-	//Set the first texture onto the sprite
-	sprButtonBack->setTexture(texButtons[0]);
+	rectBackArrow = new sf::IntRect(0, 0, 91, 59);
+	texBackArrow->loadFromFile("Resources/Textures/SharedMenuButtons/BackArrow.png");
+	sprBackArrow->setTexture(*texBackArrow);
+	sprBackArrow->setTextureRect(*rectBackArrow);
 	
 	//Set the position of the sprite
-	sprButtonBack->setPosition(*new sf::Vector2f(buttonCoords[0] - gameWin.calculate_obj_offset(0, &texButtons[0], 0)));
+	sprBackArrow->setPosition(buttonCoords[0]);
 	
 
 }
@@ -81,16 +75,18 @@ void SS::loop_events() {
 		pos_mouse = sf::Mouse::getPosition(*gameWin.window);
 		mouseCoords = gameWin.window->mapPixelToCoords(pos_mouse);
 
-		sf::FloatRect backRect = sprButtonBack->getGlobalBounds();
+		sf::FloatRect backRect = sprBackArrow->getGlobalBounds();
 
 		//deal with play button highlights
 		if (backRect.contains(mouseCoords)) {
-			sprButtonBack->setTexture(texButtonHighlighted[0]);
+			rectBackArrow->left = rectBackArrow->width;
+			sprBackArrow->setTextureRect(*rectBackArrow);
 			//don't forget to reset whatever other buttons you add
 			hovered = true;
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				sprButtonBack->setTexture(texButtonPressed[0]);
+				rectBackArrow->left = rectBackArrow->width*2;
+				sprBackArrow->setTextureRect(*rectBackArrow);
 				clicked = true;
 			}
 
@@ -98,7 +94,8 @@ void SS::loop_events() {
 
 		}
 		else {
-			sprButtonBack->setTexture(texButtons[0]);
+			rectBackArrow->left = 0;
+			sprBackArrow->setTextureRect(*rectBackArrow);
 			hovered = false;
 			clicked = false;
 
@@ -131,7 +128,7 @@ void SS::draw_all() {
 	gameWin.window->clear();
 
 	gameWin.window->draw(*background);
-	gameWin.window->draw(*sprButtonBack);
+	gameWin.window->draw(*sprBackArrow);
 
 	gameWin.window->display();
 }

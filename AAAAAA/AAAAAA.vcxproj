@@ -147,6 +147,7 @@
     <Image Include="bin\Resources\Textures\SharedMenuButtons\Back1.png" />
     <Image Include="bin\Resources\Textures\SharedMenuButtons\Back2.png" />
     <Image Include="bin\Resources\Textures\SharedMenuButtons\Back3.png" />
+    <Image Include="bin\Resources\Textures\SharedMenuButtons\BackArrow.png" />
     <Image Include="bin\Resources\Textures\TitleScreen.png" />
     <Image Include="bin\Resources\Textures\TitleScreenButtons\1.png" />
     <Image Include="bin\Resources\Textures\TitleScreenButtons\1_highlighted.png" />

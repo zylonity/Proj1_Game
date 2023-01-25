@@ -20,4 +20,3 @@ public:
 	void run_window();
 
 };
-
