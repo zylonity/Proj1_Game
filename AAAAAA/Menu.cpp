@@ -14,10 +14,6 @@ MM::MainMenu() {
 	background = new sf::Sprite();
 	logo = new sf::Sprite();
 	
-	playButton = new UIButton();
-	settingsButton = new UIButton();
-	quitButton = new UIButton();
-	
 	set_values();
 }
 
@@ -31,11 +27,6 @@ MM::~MainMenu() {
 
 	delete background;
 	delete logo;
-
-
-	delete playButton;
-	delete settingsButton;
-	delete quitButton;
 	
 }
 
@@ -71,13 +62,13 @@ void MM::set_values() {
 	
 	textOptions.resize(3);
 
-	playButton->create_button(new std::string("Resources/Textures/TitleScreenButtons/play_button.png"), 3);
-	settingsButton->create_button(new std::string("Resources/Textures/TitleScreenButtons/settings_button.png"), 3);
-	quitButton->create_button(new std::string("Resources/Textures/TitleScreenButtons/quit_button.png"), 3);
+	playButton.create_button(("Resources/Textures/TitleScreenButtons/play_button.png"), 3);
+	settingsButton.create_button(("Resources/Textures/TitleScreenButtons/settings_button.png"), 3);
+	quitButton.create_button(("Resources/Textures/TitleScreenButtons/quit_button.png"), 3);
 
-	playButton->set_position(buttonCoords[0]);
-	settingsButton->set_position(buttonCoords[1]);
-	quitButton->set_position(buttonCoords[2]);
+	playButton.set_position(buttonCoords[0]);
+	settingsButton.set_position(buttonCoords[1]);
+	quitButton.set_position(buttonCoords[2]);
 	
 	
 	
@@ -115,25 +106,25 @@ void MM::loop_events() {
 
 		gameWin.update_mouse();
 
-		playButton->button_detection(gameWin.mouseCoords, event); 
-		settingsButton->button_detection(gameWin.mouseCoords, event);
-		quitButton->button_detection(gameWin.mouseCoords, event);
+		playButton.button_detection(gameWin.mouseCoords, event); 
+		settingsButton.button_detection(gameWin.mouseCoords, event);
+		quitButton.button_detection(gameWin.mouseCoords, event);
 		
-		if (playButton->validClick) {
-			playButton->reset_button();
+		if (playButton.validClick) {
+			playButton.reset_button();
 
 		}
 
-		if (settingsButton->validClick) {
-			settingsButton->reset_button();
+		if (settingsButton.validClick) {
+			settingsButton.reset_button();
 			gameWin.currentScreen = 2;
 			gameWin.window->clear();
 			mainMenuOpen = false;
 
 		}
 
-		if (quitButton->validClick) {
-			quitButton->reset_button();
+		if (quitButton.validClick) {
+			quitButton.reset_button();
 			gameWin.window->close();
 
 		}
@@ -157,9 +148,9 @@ void MM::draw_all() {
 	gameWin.window->draw(*background);
 	gameWin.window->draw(*logo);
 
-	gameWin.window->draw(*playButton->sprButton);
-	gameWin.window->draw(*settingsButton->sprButton);
-	gameWin.window->draw(*quitButton->sprButton);
+	gameWin.window->draw(playButton.sprButton);
+	gameWin.window->draw(settingsButton.sprButton);
+	gameWin.window->draw(quitButton.sprButton);
 
 	for (auto t : textOptions) {
 		gameWin.window->draw(t);

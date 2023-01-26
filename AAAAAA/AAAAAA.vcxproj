@@ -133,15 +133,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="UI_Elements\UI_Button.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameWindow_Header.h" />
+    <ClInclude Include="GameWindow.h" />
     <ClInclude Include="MainMenu_Header.h" />
     <ClInclude Include="SettingsMenu_Header.h" />
+    <ClInclude Include="UI_Elements\UI_Button.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="bin\Resources\Textures\BG.png" />

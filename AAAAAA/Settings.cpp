@@ -12,8 +12,6 @@ SS::SettingsMenu() {
 	bgImage = new sf::Texture();
 	background = new sf::Sprite();
 
-	pBackButton = new UIButton();
-
 	set_values();
 }
 
@@ -23,8 +21,6 @@ SS::~SettingsMenu() {
 	delete font;
 	delete bgImage;
 	delete background;
-
-	delete pBackButton;
 
 }
 
@@ -39,10 +35,11 @@ void SS::set_values() {
 
 	buttonCoords = { {100, 50} };
 
-	pBackButton->create_button(new std::string("Resources/Textures/SharedMenuButtons/BackArrow.png"), 3);
+	
+	pBackButton.create_button(("Resources/Textures/SharedMenuButtons/BackArrow.png"), 3);
 
 
-	pBackButton->set_position(buttonCoords[0]);
+	pBackButton.set_position(buttonCoords[0]);
 	
 
 }
@@ -62,11 +59,11 @@ void SS::loop_events() {
 
 
 		gameWin.update_mouse();
-		pBackButton->button_detection(gameWin.mouseCoords, event);
+		pBackButton.button_detection(gameWin.mouseCoords, event);
 
 		//on letting go of button
-		if (pBackButton->validClick) {
-			pBackButton->reset_button();
+		if (pBackButton.validClick) {
+			pBackButton.reset_button();
 			gameWin.window->clear();
 			gameWin.currentScreen = 1;
 			settingsOpen = false;
@@ -84,7 +81,7 @@ void SS::draw_all() {
 	gameWin.window->clear();
 
 	gameWin.window->draw(*background);
-	gameWin.window->draw(*pBackButton->sprButton);
+	gameWin.window->draw(pBackButton.sprButton);
 
 	gameWin.window->display();
 }

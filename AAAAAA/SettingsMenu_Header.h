@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include "GameWindow_Header.h"
+#include "GameWindow.h"
 
 class SettingsMenu {
 	int pos;
@@ -14,7 +14,7 @@ class SettingsMenu {
 	sf::Texture* bgImage;
 	sf::Sprite* background;
 
-	UIButton* pBackButton;
+	UI::Button pBackButton;
 	
 	std::vector<sf::Vector2f> buttonCoords;
 
