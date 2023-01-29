@@ -41,6 +41,8 @@ sf::View GameWindow::calculate_viewport(const sf::Vector2u& windowsize, const sf
 	return view;
 }
 
+//Calculate the offset for the sprites/textures/text
+//this works for positioning
 sf::Vector2f GameWindow::calculate_obj_offset(sf::Sprite* sprite, sf::Texture* texture, sf::Text* text) {
 
 	if (sprite != 0) {
@@ -62,6 +64,8 @@ sf::Vector2f GameWindow::calculate_obj_offset(sf::Sprite* sprite, sf::Texture* t
 	return sf::Vector2f(0, 0);
 }
 
+
+//gets mouse coords, should be put in the window loops in individual files
 void GameWindow::update_mouse() {
 	pos_mouse = sf::Mouse::getPosition(*window);
 	mouseCoords = window->mapPixelToCoords(pos_mouse);

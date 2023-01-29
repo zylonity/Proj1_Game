@@ -71,6 +71,7 @@ void MM::set_values() {
 	
 	textOptions.resize(3);
 
+	//Create all the buttons using the UI button class.
 	playButton->create_button(new std::string("Resources/Textures/TitleScreenButtons/play_button.png"), 3);
 	settingsButton->create_button(new std::string("Resources/Textures/TitleScreenButtons/settings_button.png"), 3);
 	quitButton->create_button(new std::string("Resources/Textures/TitleScreenButtons/quit_button.png"), 3);
