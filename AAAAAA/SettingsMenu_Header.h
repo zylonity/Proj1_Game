@@ -7,12 +7,12 @@ class SettingsMenu {
 	int pos;
 	bool clicked, hovered;
 	
-	GameWindow gameWin;
+	GameWindow* gameWin;
 
-	sf::Font* font;
+	sf::Font font;
 
-	sf::Texture* bgImage;
-	sf::Sprite* background;
+	sf::Texture bgImage;
+	sf::Sprite background;
 
 	UI::Button pBackButton;
 	

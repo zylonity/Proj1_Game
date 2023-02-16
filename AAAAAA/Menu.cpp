@@ -8,25 +8,14 @@ typedef MainMenu MM;
 //assign the values to the pointers
 MM::MainMenu() {
 	mainMenuOpen = true;
-	font = new sf::Font();
-	bgImage = new sf::Texture();
-	logoImage = new sf::Texture();
-	background = new sf::Sprite();
-	logo = new sf::Sprite();
 	
-	set_values();
+
 }
 
 
 //delete all the pointers from memory
 MM::~MainMenu() {
-	delete font;
 
-	delete bgImage;
-	delete logoImage;
-
-	delete background;
-	delete logo;
 	
 }
 
@@ -34,14 +23,14 @@ void MM::set_values() {
 	
 	buttonCount = 3;
 
-	bgImage->loadFromFile("Resources/Textures/BG.png");
-	logoImage->loadFromFile("Resources/Textures/TitleScreen.png");
+	bgImage.loadFromFile("Resources/Textures/BG.png");
+	logoImage.loadFromFile("Resources/Textures/TitleScreen.png");
 
 	
-	background->setTexture(*bgImage);
-	logo->setTexture(*logoImage);
+	background.setTexture(bgImage);
+	logo.setTexture(logoImage);
 	
-	font->loadFromFile("Resources/Fonts/Blokletters-Balpen.ttf");
+	font.loadFromFile("Resources/Fonts/Blokletters-Balpen.ttf");
 
 	pos = 0;
 	clicked = false;
@@ -51,10 +40,10 @@ void MM::set_values() {
 	sf::Vector2f logoCoords;
 
 	//Get position logo should be in
-	logoCoords.x = (gameWin.designedWinSize.x / 2) - (logoImage->getSize().x / 2);
-	logoCoords.y = ((gameWin.designedWinSize.y / 2) - (logoImage->getSize().y / 2) - 200);
+	logoCoords.x = (gameWin->designedWinSize.x / 2) - (logoImage.getSize().x / 2);
+	logoCoords.y = ((gameWin->designedWinSize.y / 2) - (logoImage.getSize().y / 2) - 200);
 
-	logo->setPosition(logoCoords);
+	logo.setPosition(logoCoords);
 
 
 	options = {"PLAY", "SETTINGS", "QUIT"};
@@ -73,11 +62,11 @@ void MM::set_values() {
 	
 	
 	for (int i = 0; i < textOptions.size(); i++) {
-		textOptions[i].setFont(*font);
+		textOptions[i].setFont(font);
 		textOptions[i].setString(options[i]);
 		textOptions[i].setCharacterSize(20);
 		textOptions[i].setFillColor(sf::Color::Black);
-		textOptions[i].setPosition(*new sf::Vector2f(buttonCoords[i] - gameWin.calculate_obj_offset(0, 0, &textOptions[i])));
+		textOptions[i].setPosition(*new sf::Vector2f(buttonCoords[i] - gameWin->calculate_obj_offset(0, 0, &textOptions[i])));
 
 		
 	}
@@ -92,23 +81,23 @@ void MM::set_values() {
 void MM::loop_events() {
 
 	sf::Event event;
-	while (gameWin.window->pollEvent(event) && mainMenuOpen)
+	while (gameWin->window.pollEvent(event) && mainMenuOpen)
 	{
 		if (event.type == sf::Event::Closed) 
 		{
-			gameWin.window->close();
+			gameWin->window.close();
 		}
 
 		if (event.type == sf::Event::Resized) 
 		{
-			gameWin.window->setView(gameWin.calculate_viewport(gameWin.window->getSize(), gameWin.designedWinSize));
+			gameWin->window.setView(gameWin->calculate_viewport(gameWin->window.getSize(), gameWin->designedWinSize));
 		}
 
-		gameWin.update_mouse();
+		gameWin->update_mouse();
 
-		playButton.button_detection(gameWin.mouseCoords, event); 
-		settingsButton.button_detection(gameWin.mouseCoords, event);
-		quitButton.button_detection(gameWin.mouseCoords, event);
+		playButton.button_detection(gameWin->mouseCoords, event); 
+		settingsButton.button_detection(gameWin->mouseCoords, event);
+		quitButton.button_detection(gameWin->mouseCoords, event);
 		
 		if (playButton.validClick) {
 			playButton.reset_button();
@@ -117,15 +106,15 @@ void MM::loop_events() {
 
 		if (settingsButton.validClick) {
 			settingsButton.reset_button();
-			gameWin.currentScreen = 2;
-			gameWin.window->clear();
+			gameWin->currentScreen = 2;
+			gameWin->window.clear();
 			mainMenuOpen = false;
 
 		}
 
 		if (quitButton.validClick) {
 			quitButton.reset_button();
-			gameWin.window->close();
+			gameWin->window.close();
 
 		}
 		
@@ -143,31 +132,33 @@ void MM::draw_all() {
 
 
 
-	gameWin.window->clear();
+	gameWin->window.clear();
 
-	gameWin.window->draw(*background);
-	gameWin.window->draw(*logo);
+	gameWin->window.draw(background);
+	gameWin->window.draw(logo);
 
-	gameWin.window->draw(playButton.sprButton);
-	gameWin.window->draw(settingsButton.sprButton);
-	gameWin.window->draw(quitButton.sprButton);
+	gameWin->window.draw(playButton.sprButton);
+	gameWin->window.draw(settingsButton.sprButton);
+	gameWin->window.draw(quitButton.sprButton);
 
 	for (auto t : textOptions) {
-		gameWin.window->draw(t);
+		gameWin->window.draw(t);
 	}
 
 	
-	gameWin.window->display();
+	gameWin->window.display();
 }
 
 
 //what is needed to run the menu
 void MM::run_menu(GameWindow* tGameWin) {
-	gameWin = *tGameWin;
+	gameWin = tGameWin;
 	mainMenuOpen = true;
-	while (gameWin.window->isOpen() && mainMenuOpen)
+	set_values();
+	while (gameWin->window.isOpen() && mainMenuOpen)
 	{
 		loop_events();
 		draw_all();
 	}
+
 }

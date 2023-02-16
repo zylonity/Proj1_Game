@@ -8,13 +8,13 @@ class MainMenu {
 	int buttonCount;
 	bool clicked, hovered;
 
-	GameWindow gameWin;
+	GameWindow* gameWin;
 	
-	sf::Font* font;
-	sf::Texture* bgImage;
-	sf::Texture* logoImage;
-	sf::Sprite* background;
-	sf::Sprite* logo;
+	sf::Font font;
+	sf::Texture bgImage;
+	sf::Texture logoImage;
+	sf::Sprite background;
+	sf::Sprite logo;
 	
 
 	UI::Button playButton;

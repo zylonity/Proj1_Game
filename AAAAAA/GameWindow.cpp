@@ -3,7 +3,7 @@
 #include "SettingsMenu_Header.h"
 
 GameWindow::GameWindow() {
-	window = new sf::RenderWindow();
+	//window = new sf::RenderWindow();
 	designedWinSize = sf::Vector2u(1280, 720);
 
 	mouseCoords = { 0, 0 };
@@ -62,24 +62,24 @@ sf::Vector2f GameWindow::calculate_obj_offset(sf::Sprite* sprite, sf::Texture* t
 }
 
 void GameWindow::update_mouse() {
-	pos_mouse = sf::Mouse::getPosition(*window);
-	mouseCoords = window->mapPixelToCoords(pos_mouse);
+	pos_mouse = sf::Mouse::getPosition(window);
+	mouseCoords = window.mapPixelToCoords(pos_mouse);
 }
 
 void GameWindow::run_window() {
 	MainMenu menu = MainMenu::MainMenu();
 	SettingsMenu settings = SettingsMenu::SettingsMenu();
 
-	window->create(sf::VideoMode(1280, 720), "wOah");
+	window.create(sf::VideoMode(1280, 720), "wOah");
 
 	currentScreen = 1;
 
-	while (window->isOpen()) {
+	while (window.isOpen()) {
 		sf::Event event;
-		while (window->pollEvent(event))
+		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed) {
-				window->close();
+				window.close();
 			}
 
 		}
@@ -93,8 +93,8 @@ void GameWindow::run_window() {
 		}
 
 
-		window->clear();
-		window->display();
+		window.clear();
+		window.display();
 	}
 
 }
