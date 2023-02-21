@@ -1,13 +1,16 @@
 #include "GameWindow.h"
 #include "MainMenu_Header.h"
 #include "SettingsMenu_Header.h"
+#include "Game.h"
 
 GameWindow::GameWindow() {
 	//window = new sf::RenderWindow();
-	designedWinSize = sf::Vector2u(1280, 720);
+	designedWinSize = sf::Vector2u(1920, 1080);
 
 	mouseCoords = { 0, 0 };
 	pos_mouse = { 0, 0 };
+
+	defBgImage.loadFromFile("Resources/Textures/BG.png");
 
 }
 
@@ -17,11 +20,12 @@ GameWindow::~GameWindow() {
 
 
 //calculates the size of the viewport
-sf::View GameWindow::calculate_viewport(const sf::Vector2u& windowsize, const sf::Vector2u& designedsize) {
+sf::View GameWindow::calculate_viewport() {
+	sf::Vector2u windowsize = window.getSize();
 	sf::FloatRect viewport(0.f, 0.f, 1.f, 1.f);
 
-	float screenwidth = windowsize.x / static_cast<float>(designedsize.x);
-	float screenheight = windowsize.y / static_cast<float>(designedsize.y);
+	float screenwidth = windowsize.x / static_cast<float>(designedWinSize.x);
+	float screenheight = windowsize.y / static_cast<float>(designedWinSize.y);
 
 	if (screenwidth > screenheight)
 	{
@@ -34,7 +38,7 @@ sf::View GameWindow::calculate_viewport(const sf::Vector2u& windowsize, const sf
 		viewport.top = (1.f - viewport.height) / 2.f;
 	}
 
-	sf::View view(sf::FloatRect(0, 0, designedsize.x, designedsize.y));
+	sf::View view(sf::FloatRect(0, 0, designedWinSize.x, designedWinSize.y));
 	view.setViewport(viewport);
 
 	return view;
@@ -67,10 +71,10 @@ void GameWindow::update_mouse() {
 }
 
 void GameWindow::run_window() {
-	MainMenu menu = MainMenu::MainMenu();
-	SettingsMenu settings = SettingsMenu::SettingsMenu();
 
-	window.create(sf::VideoMode(1280, 720), "wOah");
+	window.create(sf::VideoMode(1920, 1080), "wOah");
+	window.setSize(sf::Vector2u(1280, 720));
+
 
 	currentScreen = 1;
 
@@ -84,13 +88,19 @@ void GameWindow::run_window() {
 
 		}
 
-		//manage which menu goes where depending on the ID
-		switch (currentScreen) {
-		case 1:
+		if (currentScreen == 1) {
+			MainMenu menu = MainMenu::MainMenu();
 			menu.run_menu(this);
-		case 2:
+		}
+		else if (currentScreen == 2) {
+			SettingsMenu settings = SettingsMenu::SettingsMenu();
 			settings.open_settings(this);
 		}
+		else if (currentScreen == 3) {
+			Game game = Game::Game();
+			game.start_game(this);
+		}
+
 
 
 		window.clear();

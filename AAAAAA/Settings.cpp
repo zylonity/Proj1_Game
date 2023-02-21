@@ -49,7 +49,7 @@ void SS::loop_events() {
 		
 		if (event.type == sf::Event::Resized)
 		{
-			gameWin->window.setView(gameWin->calculate_viewport(gameWin->window.getSize(), gameWin->designedWinSize));
+			gameWin->window.setView(gameWin->calculate_viewport());
 		}
 
 

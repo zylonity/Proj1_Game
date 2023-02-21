@@ -10,7 +10,6 @@ class MainMenu {
 
 	GameWindow* gameWin;
 	
-	sf::Font font;
 	sf::Texture bgImage;
 	sf::Texture logoImage;
 	sf::Sprite background;
@@ -21,10 +20,7 @@ class MainMenu {
 	UI::Button settingsButton;
 	UI::Button quitButton;
 
-	std::vector<const char*>options;
 	std::vector<sf::Vector2f> buttonCoords;
-	std::vector<sf::Text> textOptions;
-	
 
 
 protected:
