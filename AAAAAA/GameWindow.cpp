@@ -20,9 +20,8 @@ GameWindow::~GameWindow() {
 
 
 //calculates the size of the viewport
-sf::View GameWindow::calculate_viewport() {
+sf::View GameWindow::calculate_viewport(sf::FloatRect viewport) {
 	sf::Vector2u windowsize = window.getSize();
-	sf::FloatRect viewport(0.f, 0.f, 1.f, 1.f);
 
 	float screenwidth = windowsize.x / static_cast<float>(designedWinSize.x);
 	float screenheight = windowsize.y / static_cast<float>(designedWinSize.y);
@@ -30,7 +29,7 @@ sf::View GameWindow::calculate_viewport() {
 	if (screenwidth > screenheight)
 	{
 		viewport.width = screenheight / screenwidth;
-		viewport.left = (1.f - viewport.width) / 2.f;
+		viewport.left = ((1.f - viewport.width) / 2.f);
 	}
 	else if (screenwidth < screenheight)
 	{

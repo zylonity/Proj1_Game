@@ -38,8 +38,10 @@ void Game::loop_events() {
 			gameWin->window.close();
 		}
 
+		sf::FloatRect tempViewPort(view.getCenter().x, view.getCenter().y, 1.0f, 1.0f);
 		if (event.type == sf::Event::Resized)
 		{
+			sf::FloatRect tempview(view.getCenter().x, view.getCenter().y, 1.0, 1.0);
 			view = gameWin->calculate_viewport();
 			gameWin->window.setView(view);
 		}
