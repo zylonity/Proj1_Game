@@ -20,28 +20,28 @@ GameWindow::~GameWindow() {
 
 
 //calculates the size of the viewport
-sf::View GameWindow::calculate_viewport(sf::FloatRect viewport) {
-	sf::Vector2u windowsize = window.getSize();
-
-	float screenwidth = windowsize.x / static_cast<float>(designedWinSize.x);
-	float screenheight = windowsize.y / static_cast<float>(designedWinSize.y);
-
-	if (screenwidth > screenheight)
-	{
-		viewport.width = screenheight / screenwidth;
-		viewport.left = ((1.f - viewport.width) / 2.f);
-	}
-	else if (screenwidth < screenheight)
-	{
-		viewport.height = screenwidth / screenheight;
-		viewport.top = (1.f - viewport.height) / 2.f;
-	}
-
-	sf::View view(sf::FloatRect(0, 0, designedWinSize.x, designedWinSize.y));
-	view.setViewport(viewport);
-
-	return view;
-}
+//sf::View GameWindow::calculate_viewport(sf::FloatRect viewport) {
+//	sf::Vector2u windowsize = window.getSize();
+//
+//	float screenwidth = windowsize.x / static_cast<float>(designedWinSize.x);
+//	float screenheight = windowsize.y / static_cast<float>(designedWinSize.y);
+//
+//	if (screenwidth > screenheight)
+//	{
+//		viewport.width = screenheight / screenwidth;
+//		viewport.left = ((1.f - viewport.width) / 2.f);
+//	}
+//	else if (screenwidth < screenheight)
+//	{
+//		viewport.height = screenwidth / screenheight;
+//		viewport.top = (1.f - viewport.height) / 2.f;
+//	}
+//
+//	sf::View view(sf::FloatRect(0, 0, designedWinSize.x, designedWinSize.y));
+//	view.setViewport(viewport);
+//
+//	return view;
+//}
 
 sf::Vector2f GameWindow::calculate_obj_offset(sf::Sprite* sprite, sf::Texture* texture, sf::Text* text) {
 
@@ -71,7 +71,8 @@ void GameWindow::update_mouse() {
 
 void GameWindow::run_window() {
 
-	window.create(sf::VideoMode(1920, 1080), "wOah");
+	//1<<2 means it cant resize or maxsimize.
+	window.create(sf::VideoMode(1920, 1080), "wOah", 1<<2);
 	window.setSize(sf::Vector2u(1280, 720));
 
 

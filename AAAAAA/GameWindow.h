@@ -14,7 +14,7 @@ public:
 	int currentScreen;
 	sf::RenderWindow window;
 	sf::Vector2u designedWinSize;
-	sf::View calculate_viewport(sf::FloatRect viewport = sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	//sf::View calculate_viewport(sf::FloatRect viewport = sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 	sf::Vector2f calculate_obj_offset(sf::Sprite* sprite, sf::Texture* texture, sf::Text* text);
 	GameWindow();
 	~GameWindow();
