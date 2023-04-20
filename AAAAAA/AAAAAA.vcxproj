@@ -133,23 +133,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="UI_Elements\UI_Button.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameWindow_Header.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameWindow.h" />
     <ClInclude Include="MainMenu_Header.h" />
     <ClInclude Include="SettingsMenu_Header.h" />
+    <ClInclude Include="UI_Elements\UI_Button.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="bin\Resources\Textures\BG.png" />
+    <Image Include="bin\Resources\Textures\Player\PlayerIdle.png" />
+    <Image Include="bin\Resources\Textures\Player\PlayerRunningLeft.png" />
+    <Image Include="bin\Resources\Textures\Player\PlayerRunningLeftGun.png" />
+    <Image Include="bin\Resources\Textures\Player\PlayerRunningRight.png" />
+    <Image Include="bin\Resources\Textures\Player\PlayerRunningRightGun.png" />
     <Image Include="bin\Resources\Textures\SharedMenuButtons\BackArrow.png" />
     <Image Include="bin\Resources\Textures\TitleScreen.png" />
     <Image Include="bin\Resources\Textures\TitleScreenButtons\play_button.png" />
     <Image Include="bin\Resources\Textures\TitleScreenButtons\quit_button.png" />
     <Image Include="bin\Resources\Textures\TitleScreenButtons\settings_button.png" />
+    <Image Include="bin\Resources\Textures\UI\EmptyHealth.png" />
+    <Image Include="bin\Resources\Textures\UI\EmptyHealth1.png" />
+    <Image Include="bin\Resources\Textures\UI\EmptyHealth3.png" />
+    <Image Include="bin\Resources\Textures\UI\Instructions1.png" />
+    <Image Include="bin\Resources\Textures\UI\Instructions2.png" />
+    <Image Include="bin\Resources\Textures\Zombie\ZombieIdle.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="bin\Resources\Fonts\Blokletters-Balpen.ttf" />

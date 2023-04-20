@@ -1,30 +1,26 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include "GameWindow_Header.h"
+#include "GameWindow.h"
 
 class MainMenu {
 	int pos;
 	int buttonCount;
 	bool clicked, hovered;
 
-	GameWindow gameWin;
+	GameWindow* gameWin;
 	
-	sf::Font* font;
-	sf::Texture* bgImage;
-	sf::Texture* logoImage;
-	sf::Sprite* background;
-	sf::Sprite* logo;
+	sf::Texture bgImage;
+	sf::Texture logoImage;
+	sf::Sprite background;
+	sf::Sprite logo;
 	
 
-	UIButton* playButton;
-	UIButton* settingsButton;
-	UIButton* quitButton;
+	UI::Button playButton;
+	UI::Button settingsButton;
+	UI::Button quitButton;
 
-	std::vector<const char*>options;
 	std::vector<sf::Vector2f> buttonCoords;
-	std::vector<sf::Text> textOptions;
-	
 
 
 protected:
