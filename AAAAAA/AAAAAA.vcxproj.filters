@@ -73,6 +73,9 @@
     <Image Include="bin\Resources\Textures\Player\PlayerIdle.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="bin\Resources\Textures\Zombie\ZombieIdle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="bin\Resources\Fonts\Blokletters-Balpen.ttf" />

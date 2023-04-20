@@ -2,10 +2,37 @@
 
 #include <SFML\Graphics.hpp>
 #include "GameWindow.h"
+#include <iostream>
+#include <vector>
 
-class Game {
-	
-	GameWindow* gameWin;
+class Enemy{
+
+	float zHealth;
+
+	float elapsed;
+
+	GameWindow* gameWW;
+
+	float moveSpeed;
+
+	bool justSpawned;
+
+
+	sf::IntRect zombieRect;
+
+protected:
+	void moveTowards();
+
+
+public:
+	Enemy();
+	void spawn_zombie(float elapsed, float aniTime, GameWindow* gameWindow, sf::Vector2f playerCoords);
+	void draw_zomb(GameWindow* gameWindow);
+	sf::Texture tZombie;
+	sf::Sprite sZombie;
+};
+
+class Game : Enemy{
 
 	sf::Font font;
 
@@ -43,8 +70,13 @@ class Game {
 	sf::FloatRect floorTest[13];
 	sf::RectangleShape floorDisplay[13];
 
+	float wave1TimeToWait, wave1Timer;
+	bool wave1Active;
+	std::vector<Enemy*> Wave1Zombies;
+	sf::FloatRect Wave1Door1, Wave1Door2;
 
 protected:
+	GameWindow* gameWin;
 	void set_values();
 	void loop_events();
 	void draw_all();
@@ -57,3 +89,4 @@ public:
 
 
 };
+

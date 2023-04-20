@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <iostream>
 
+
+sf::RectangleShape dWave1Door1;
 //set pointers
 Game::Game() {
 
@@ -51,12 +53,22 @@ void Game::set_values() {
 	floorTest[11] = sf::FloatRect(7313, 1049, 11887, 30);
 	floorTest[12] = sf::FloatRect(19170, 0, 30, 1080);
 
+	Wave1Door1 = sf::FloatRect(2162, 764, 30, 282);
+	Wave1Door2 = sf::FloatRect(3942, 754, 30, 295);
+
+
 	for (int i = 0; i < 13; i++) {
 		floorDisplay[i].setSize(sf::Vector2f(floorTest[i].width, floorTest[i].height));
 		floorDisplay[i].setPosition(floorTest[i].left, floorTest[i].top);
 		floorDisplay[i].setFillColor(sf::Color(100, 250, 50));
 		
 	}
+
+
+
+	dWave1Door1.setSize(sf::Vector2f(Wave1Door1.width, Wave1Door1.height));
+	dWave1Door1.setPosition(Wave1Door1.left, Wave1Door1.top);
+	dWave1Door1.setFillColor(sf::Color(100, 250, 50));
 
 
 
@@ -67,10 +79,13 @@ void Game::set_values() {
 	playerSpeed = 400.f;
 
 	//The smaller the faster
-	animSpeed = 0.3;
+	animSpeed = 0.3f;
 
 	accelerationSpeed = 200.f;
 
+	wave1Active = false;
+	wave1TimeToWait = 5.f;
+	wave1Timer = 0.f;
 }
 
 
@@ -80,6 +95,7 @@ void Game::loop_events() {
 	//Getting the time to make the game FPS independent.
 	timeSinceLastFrame = clock.restart().asSeconds();
 	elapsedTime += timeSinceLastFrame;
+
 
 
 	sf::Event event;
@@ -139,6 +155,15 @@ void Game::loop_events() {
 					acceleration.x += accelerationSpeed * timeSinceLastFrame;
 				}
 			}
+
+			if (wave1Active) {
+				if (sPlayer.getGlobalBounds().intersects(Wave1Door2)) {
+					acceleration.x = 0;
+					velocity.x = 0;
+
+				}
+			}
+
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -151,6 +176,14 @@ void Game::loop_events() {
 			else {
 				if (-velocity.x < playerSpeed) {
 					acceleration.x -= accelerationSpeed * timeSinceLastFrame;
+				}
+			}
+
+			if (wave1Active) {
+				if (sPlayer.getGlobalBounds().intersects(Wave1Door1)) {
+					acceleration.x = 0;
+					velocity.x = 0;
+
 				}
 			}
 			
@@ -180,7 +213,29 @@ void Game::loop_events() {
 
 		velocity = 0.8f * velocity;
 
+		//Wave 1
+		if (sPlayer.getGlobalBounds().left - 100 >= Wave1Door1.left) {
+			wave1Active = true;
+		}
+
+		if (wave1Active) {
+			wave1Timer += timeSinceLastFrame;
+			if (wave1Timer >= wave1TimeToWait) {
+				Wave1Zombies.push_back(new Enemy());
+				
+				wave1Timer = 0;
+			}
+
+			for (int i = 0; i < Wave1Zombies.size(); i++) {
+				Wave1Zombies[i]->spawn_zombie(timeSinceLastFrame, animSpeed, gameWin, sPlayer.getPosition());
+			}
+
+		}
+
 		sPlayer.setPosition(sf::Vector2f(sPlayer.getPosition() + (velocity * timeSinceLastFrame)));
+
+
+
 	}
 
 
@@ -201,6 +256,14 @@ void Game::draw_all() {
 	//Draw player
 	gameWin->window.draw(sPlayer);
 
+	gameWin->window.draw(dWave1Door1);
+
+	//
+
+	for (int i = 0; i < Wave1Zombies.size(); i++) {
+		Wave1Zombies[i]->draw_zomb(gameWin);
+	}
+
 	for (int i = 0; i < 13; i++) {
 		gameWin->window.draw(floorDisplay[i]);
 	}
@@ -217,4 +280,64 @@ void Game::start_game(GameWindow* tGameWin) {
 		loop_events();
 		draw_all();
 	}
+}
+
+Enemy::Enemy() {
+	tZombie.loadFromFile("Resources/Textures/Zombie/ZombieIdle.png");
+	sZombie.setTexture(tZombie);
+
+	zombieRect = sf::IntRect(0, 0, 100, 285);
+	sZombie.setTextureRect(zombieRect);
+	zHealth = 100;
+	justSpawned = true;
+	moveSpeed = 200.f;
+}
+
+
+void Enemy::spawn_zombie(float lastFrameTime, float aniTime, GameWindow* zGameWin, sf::Vector2f playerCoords) {
+	float yAxis = playerCoords.y;
+
+	gameWW = zGameWin;
+	if (justSpawned == true) {
+		bool TrueFalse = (rand() % 100) < 50;
+		if (TrueFalse) {
+			sZombie.setPosition(zGameWin->window.getView().getCenter().x + (zGameWin->window.getView().getSize().x / 2), yAxis);
+		}
+		else {
+			sZombie.setPosition(zGameWin->window.getView().getCenter().x - (zGameWin->window.getView().getSize().x / 2), yAxis);
+		}
+
+		justSpawned = false;
+	}
+
+	elapsed += lastFrameTime;
+
+	if (elapsed > aniTime) {
+		if (zombieRect.left < 400) {
+			zombieRect.left += 100;
+			sZombie.setTextureRect(zombieRect);
+		}
+
+		if (zombieRect.left == 400) {
+			zombieRect.left = 0;
+			sZombie.setTextureRect(zombieRect);
+		}
+		elapsed = 0;
+
+	}
+	
+	if (sZombie.getPosition().x > playerCoords.x + 50) 
+	{
+		sZombie.setPosition(sf::Vector2f(sZombie.getPosition().x - (lastFrameTime * moveSpeed), sZombie.getPosition().y));
+	}
+	else if (sZombie.getPosition().x < playerCoords.x - 50) 
+	{
+		sZombie.setPosition(sf::Vector2f(sZombie.getPosition().x + (lastFrameTime * moveSpeed), sZombie.getPosition().y));
+	}
+
+}
+
+void Enemy::draw_zomb(GameWindow* gameWaa) {
+	sZombie.setTexture(tZombie);
+	gameWaa->window.draw(sZombie);
 }
