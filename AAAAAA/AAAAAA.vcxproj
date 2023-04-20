@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bin\Resources\Textures\BG.png" />
+    <Image Include="bin\Resources\Textures\Player\PlayerIdle.png" />
     <Image Include="bin\Resources\Textures\SharedMenuButtons\BackArrow.png" />
     <Image Include="bin\Resources\Textures\TitleScreen.png" />
     <Image Include="bin\Resources\Textures\TitleScreenButtons\play_button.png" />

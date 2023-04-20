@@ -75,10 +75,6 @@ void MM::loop_events() {
 			gameWin->window.close();
 		}
 
-		if (event.type == sf::Event::Resized) 
-		{
-			//gameWin->window.setView(gameWin->calculate_viewport());
-		}
 
 		gameWin->update_mouse();
 

@@ -14,6 +14,30 @@ class Game {
 	sf::Texture bgImage_1, bgImage_2;
 	sf::Sprite backgroundP1, backgroundP2;
 
+	sf::Texture tPlayerIdle;
+	sf::Sprite sPlayer;
+	sf::IntRect playerRect;
+	int playerHealth;
+	float playerSpeed;
+
+	float cameraSpeed;
+
+	float animSpeed;
+
+	sf::Clock clock;
+	float timeSinceLastFrame;
+	float elapsedTime;
+
+
+	sf::Vector2f acceleration;
+	sf::Vector2f velocity;
+	float accelerationSpeed;
+	float gravity;
+
+
+	sf::FloatRect floorTest;
+	sf::RectangleShape floor;
+
 
 protected:
 	void set_values();
