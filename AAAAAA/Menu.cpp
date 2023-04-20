@@ -47,7 +47,7 @@ void MM::set_values() {
 
 	buttonCoords = { {920, 500}, {920, 700}, {920, 900} };
 	
-
+  
 	playButton.create_button(("Resources/Textures/TitleScreenButtons/play_button2.png"), 3);
 	settingsButton.create_button(("Resources/Textures/TitleScreenButtons/settings_button2.png"), 3);
 	quitButton.create_button(("Resources/Textures/TitleScreenButtons/quit_button2.png"), 3);
