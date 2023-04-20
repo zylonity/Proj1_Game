@@ -42,10 +42,13 @@ void Game::set_values() {
 	tPlayerIdle.loadFromFile("Resources/Textures/Player/PlayerIdle.png");
 	tPlayerRunningRight.loadFromFile("Resources/Textures/Player/PlayerRunningRight.png");
 	tPlayerRunningLeft.loadFromFile("Resources/Textures/Player/PlayerRunningLeft.png");
+	tPlayerFiringRight.loadFromFile("Resources/Textures/Player/PlayerRunningRightGun.png");
+	tPlayerFiringLeft.loadFromFile("Resources/Textures/Player/PlayerRunningLeftGun.png");
 	sPlayer.setTexture(tPlayerIdle);
 	sprites = 5;
 
 	running = false;
+
 
 	//Player sprites are 100 x 285 per sheet
 	playerRect = sf::IntRect(0, 0, 100, 285);
@@ -142,6 +145,7 @@ void Game::loop_events() {
 
 			//damage zombies
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+				shooting = true;
 				for (int i = 0; i < Wave1Zombies.size(); i++) {
 					if (Wave1Zombies[i]->sZombie.getGlobalBounds().contains(gameWin->mouseCoords)) {
 						Wave1Zombies[i]->zomb_damage(10, timeSinceLastFrame, gunCanShoot);
@@ -151,6 +155,9 @@ void Game::loop_events() {
 					}
 				}
 			}
+		}
+		else if (event.type == sf::Event::MouseButtonReleased) {
+			shooting = false;
 		}
 
 	}
@@ -202,10 +209,19 @@ void Game::loop_events() {
 		//Deals with right input
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			//update sprite accordingly
-			sprites = 7;
-			animSpeed = 0.1f;
-			sPlayer.setTexture(tPlayerRunningRight);
+
+			if (shooting) {
+				sprites = 7;
+				animSpeed = 0.1f;
+				sPlayer.setTexture(tPlayerFiringRight);
+			}
+			else {
+				//update sprite accordingly
+				sprites = 7;
+				animSpeed = 0.1f;
+				sPlayer.setTexture(tPlayerRunningRight);
+			}
+
 
 
 			//Deals with wall at the very end of the map
@@ -233,9 +249,17 @@ void Game::loop_events() {
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			sprites = 7;
-			animSpeed = 0.1f;
-			sPlayer.setTexture(tPlayerRunningLeft);
+			if (shooting) {
+				sprites = 7;
+				animSpeed = 0.1f;
+				sPlayer.setTexture(tPlayerFiringLeft);
+			}
+			else {
+				sprites = 7;
+				animSpeed = 0.1f;
+				sPlayer.setTexture(tPlayerRunningLeft);
+			}
+
 
 			//Deals with wall at the very beginning of the map
 			if (sPlayer.getGlobalBounds().intersects(floorTest[0])) {

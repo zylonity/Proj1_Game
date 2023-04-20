@@ -91,6 +91,18 @@
     <Image Include="bin\Resources\Textures\UI\Instructions2.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="bin\Resources\Textures\Player\PlayerRunningLeft.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\Player\PlayerRunningRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\Player\PlayerRunningRightGun.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\Player\PlayerRunningLeftGun.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="bin\Resources\Fonts\Blokletters-Balpen.ttf" />

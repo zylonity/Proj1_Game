@@ -59,6 +59,8 @@ class Game : Enemy{
 
 	bool running;
 
+	sf::Texture tPlayerFiringRight, tPlayerFiringLeft;
+	bool shooting;
 
 	sf::Texture tHealthBar;
 	sf::Sprite sHealthBar;
