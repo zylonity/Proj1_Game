@@ -1,5 +1,7 @@
 #include "UI_Button.h"
 
+
+//UI Namespace, handles my GUI stuff for menus
 namespace UI {
 	Button::Button() {
 		clickDown = false;

@@ -5,33 +5,39 @@
 #include <iostream>
 #include <vector>
 
+
+//Enemy class for the zombies
 class Enemy{
 
-	float zHealth;
+
 
 	float elapsed;
-
-	GameWindow* gameWW;
 
 	float moveSpeed;
 
 	bool justSpawned;
 
+	float damageCooldown;
+	float damageCooldownTimer;
 
-	sf::IntRect zombieRect;
+	float damageAnimTime;
 
-protected:
-	void moveTowards();
 
 
 public:
 	Enemy();
-	void spawn_zombie(float elapsed, float aniTime, GameWindow* gameWindow, sf::Vector2f playerCoords);
+	void spawn_zombie(float elapsed, GameWindow* gameWindow, sf::Sprite playerSpr, int* playerHealth);
 	void draw_zomb(GameWindow* gameWindow);
+	void zomb_damage(int damage, float elapsed, bool canBeHit);
 	sf::Texture tZombie;
 	sf::Sprite sZombie;
+	sf::IntRect zombieRect;
+	float animationSpeed;
+	float zHealth;
 };
 
+
+//Game class declaring variables
 class Game : Enemy{
 
 	sf::Font font;
@@ -41,18 +47,32 @@ class Game : Enemy{
 	sf::Texture bgImage_1, bgImage_2;
 	sf::Sprite backgroundP1, backgroundP2;
 
+	sf::Texture tInstructions1, tInstructions2;
+	sf::Sprite sInstructions1, sInstructions2;
+
 	sf::Texture tPlayerIdle;
+	sf::Texture tPlayerRunningRight, tPlayerRunningLeft;
+	int sprites;
 	sf::Sprite sPlayer;
 	sf::IntRect playerRect;
 	int playerHealth;
 
+	bool running;
+
+
+	sf::Texture tHealthBar;
+	sf::Sprite sHealthBar;
+	sf::FloatRect HealthBarCoords;
+	sf::RectangleShape fillingHealthBar;
+	float healthPercentage;
 
 	float playerSpeed;
 	float playerJumpHeight;
 	bool reachedJumpHeight;
 	bool jumped;
 
-	float cameraSpeed;
+	float firingRate;
+
 
 	float animSpeed;
 
@@ -72,7 +92,9 @@ class Game : Enemy{
 
 	float wave1TimeToWait, wave1Timer;
 	bool wave1Active;
+	int Wave1Index;
 	std::vector<Enemy*> Wave1Zombies;
+	sf::RectangleShape dWave1Door1, dWave1Door2;
 	sf::FloatRect Wave1Door1, Wave1Door2;
 
 protected:
@@ -84,6 +106,7 @@ protected:
 public:
 	Game();
 	~Game();
+	bool gunCanShoot;
 	bool gameOpen;
 	void start_game(GameWindow* gameWindow);
 

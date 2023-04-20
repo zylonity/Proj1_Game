@@ -1,7 +1,7 @@
 #include "GameWindow.h"
 #include <SFML\Graphics.hpp>
 
-
+//Main script. Doesn't do much lol.
 int main() {
 
 	GameWindow gameWin;

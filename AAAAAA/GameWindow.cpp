@@ -19,6 +19,8 @@ GameWindow::~GameWindow() {
 }
 
 
+//UNUSED, but it works to help me rescale the window, I ended up ditching it because of time
+
 //calculates the size of the viewport
 //sf::View GameWindow::calculate_viewport(sf::FloatRect viewport) {
 //	sf::Vector2u windowsize = window.getSize();
@@ -42,6 +44,8 @@ GameWindow::~GameWindow() {
 //
 //	return view;
 //}
+
+
 
 sf::Vector2f GameWindow::calculate_obj_offset(sf::Sprite* sprite, sf::Texture* texture, sf::Text* text) {
 
@@ -69,6 +73,9 @@ void GameWindow::update_mouse() {
 	mouseCoords = window.mapPixelToCoords(pos_mouse);
 }
 
+
+//Handles main menu stuff and window switching.
+//Window is accesed through a pointer at any given time, as I can't recreate them every time and it saves time
 void GameWindow::run_window() {
 
 	//1<<2 means it cant resize or maxsimize.

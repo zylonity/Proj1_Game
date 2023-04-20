@@ -76,6 +76,21 @@
     <Image Include="bin\Resources\Textures\Zombie\ZombieIdle.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="bin\Resources\Textures\UI\EmptyHealth.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\UI\EmptyHealth1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\UI\EmptyHealth3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\UI\Instructions1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bin\Resources\Textures\UI\Instructions2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="bin\Resources\Fonts\Blokletters-Balpen.ttf" />

@@ -155,6 +155,11 @@
     <Image Include="bin\Resources\Textures\TitleScreenButtons\play_button.png" />
     <Image Include="bin\Resources\Textures\TitleScreenButtons\quit_button.png" />
     <Image Include="bin\Resources\Textures\TitleScreenButtons\settings_button.png" />
+    <Image Include="bin\Resources\Textures\UI\EmptyHealth.png" />
+    <Image Include="bin\Resources\Textures\UI\EmptyHealth1.png" />
+    <Image Include="bin\Resources\Textures\UI\EmptyHealth3.png" />
+    <Image Include="bin\Resources\Textures\UI\Instructions1.png" />
+    <Image Include="bin\Resources\Textures\UI\Instructions2.png" />
     <Image Include="bin\Resources\Textures\Zombie\ZombieIdle.png" />
   </ItemGroup>
   <ItemGroup>
