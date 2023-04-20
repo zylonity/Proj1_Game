@@ -18,7 +18,12 @@ class Game {
 	sf::Sprite sPlayer;
 	sf::IntRect playerRect;
 	int playerHealth;
+
+
 	float playerSpeed;
+	float playerJumpHeight;
+	bool reachedJumpHeight;
+	bool jumped;
 
 	float cameraSpeed;
 
@@ -35,8 +40,8 @@ class Game {
 	float gravity;
 
 
-	sf::FloatRect floorTest;
-	sf::RectangleShape floor;
+	sf::FloatRect floorTest[13];
+	sf::RectangleShape floorDisplay[13];
 
 
 protected:

@@ -75,6 +75,7 @@ void GameWindow::run_window() {
 	window.create(sf::VideoMode(1920, 1080), "wOah", 1<<2);
 	window.setSize(sf::Vector2u(1280, 720));
 
+	//window.setFramerateLimit(60);
 
 	currentScreen = 1;
 
