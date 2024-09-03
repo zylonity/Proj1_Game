@@ -1,5 +1,3 @@
-Project 1 for P2DG in 2022
-
 Making a stick fighting game
 
 TODO:
